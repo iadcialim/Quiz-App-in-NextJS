@@ -5,12 +5,38 @@ Section: optional
 Priority: low
 Applies to: performance optimization
 Dependencies: [core]
-Version: 1.0.0
+Version: 1.1.0
 Last Updated: 2024-12-19
 Project: Quiz App in NextJS
 -->
 
-## 1. Performance Optimization
+## 1. Operational Workflow
+
+### Implementation Command Behavior
+
+When the `@implement` action prompt is used, the system MUST follow this interaction pattern:
+
+**Step 1: Implementation Scope Selection**
+- Ask the user to choose implementation approach:
+  - **All tasks**: Implement all open tasks for the specification at once
+  - **One by one**: Implement tasks individually with confirmation between each
+  - **By group/phase**: Implement tasks in specific phases (Setup, Tests, Core, Integration, Polish)
+
+**Step 2: Task Execution**
+- Execute tasks according to the selected approach
+- Follow dependency rules and parallel execution markers [P]
+- Apply constitutional standards based on file types being implemented
+- Report progress after each completed task or phase
+
+**Step 3: Completion Summary**
+- After implementation is finished, automatically generate a git commit message
+- Summarize changes made during implementation
+- Provide concise, conventional commit format suitable for version control
+
+### Rationale
+This workflow ensures controlled implementation with user oversight while maintaining automation efficiency. The git message generation reduces manual overhead and ensures consistent commit history.
+
+## 2. Performance Optimization
 
 | Optimization Area      | Guideline                       | Priority | Impact      |
 | ---------------------- | ------------------------------- | -------- | ----------- |
