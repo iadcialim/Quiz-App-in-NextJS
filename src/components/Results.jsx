@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { FaTrophy, FaCheckCircle, FaTimesCircle, FaQuestionCircle, FaPercentage, FaClock, FaStopwatch } from "react-icons/fa";
+import { FaTrophy, FaCheckCircle, FaTimesCircle, FaQuestionCircle, FaPercentage, FaClock, FaStopwatch, FaGamepad } from "react-icons/fa";
 import Confetti from 'react-confetti';
 import { useWindowSize } from 'react-use';
 
@@ -14,6 +14,7 @@ const Results = ({
   percentage,
   timeSpent,
   averageTimePerQuestion,
+  miniGameScore = 0,
 }) => {
   // Set the state for confetti
   const [showConfetti, setShowConfetti] = useState(true);
@@ -108,11 +109,34 @@ const Results = ({
           <FaStopwatch className="text-indigo-500 text-3xl" />
         </div>
 
+        {/* Mini-Game Score */}
+        <div className="p-5 bg-white shadow-md rounded-lg flex items-center justify-between hover:shadow-lg transition-shadow duration-300">
+          <div>
+            <p className="text-xl font-semibold">Mini-Game Score</p>
+            <p className="text-lg font-bold text-orange-600">{miniGameScore}</p>
+          </div>
+          <FaGamepad className="text-orange-500 text-3xl" />
+        </div>
+
+        {/* Bonus Multiplier */}
+        <div className="p-5 bg-white shadow-md rounded-lg flex items-center justify-between hover:shadow-lg transition-shadow duration-300">
+          <div>
+            <p className="text-xl font-semibold">Bonus Multiplier</p>
+            <p className="text-lg font-bold text-pink-600">{(1.0 + (Math.max(0, miniGameScore) * 0.1)).toFixed(1)}x</p>
+          </div>
+          <FaTrophy className="text-pink-500 text-3xl" />
+        </div>
+
         {/* Final Score */}
         <div className="p-5 bg-white shadow-md rounded-lg flex items-center justify-between col-span-1 md:col-span-3 text-center hover:shadow-lg transition-shadow duration-300">
-          <p className="text-xl font-semibold w-full">
-            You scored {correctAnswers * 4} out of {totalQuestions * 4} points!
-          </p>
+          <div className="w-full">
+            <p className="text-xl font-semibold mb-2">
+              Quiz Score: {correctAnswers * 4} + Mini-Game: {miniGameScore} = Total: {score}
+            </p>
+            <p className="text-lg text-gray-600">
+              You scored {score} out of {totalQuestions * 4 + Math.max(0, miniGameScore)} possible points!
+            </p>
+          </div>
         </div>
       </div>
     </div>

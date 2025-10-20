@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { usePoints } from "@/context/PointsContext";
 import QuestionTimer from "@/components/QuestionTimer";
 import Results from "@/components/Results";
+import EggJugglingGame from "@/components/EggJugglingGame";
 
 const Quiz = ({ params }) => {
   const { subject } = params;
@@ -19,6 +20,7 @@ const Quiz = ({ params }) => {
   const [unattemptedQuestions, setUnattemptedQuestions] = useState(0);
   const [totalTimeSpent, setTotalTimeSpent] = useState(0);
   const [timePerQuestion, setTimePerQuestion] = useState(0);
+  const [miniGameScore, setMiniGameScore] = useState(0);
 
   useEffect(() => {
     const fetchQuestions = async () => {
@@ -80,7 +82,23 @@ const Quiz = ({ params }) => {
   return (
     <div className="p-6 bg-gray-100 min-h-screen">
       {!showResults ? (
-        <div className="max-w-xl mx-auto bg-white rounded-lg shadow-lg p-6 relative">
+        <div className="flex flex-col lg:flex-row gap-6 max-w-6xl mx-auto">
+          {/* Mini-Game Panel */}
+          <div className="w-full lg:w-1/3 order-2 lg:order-1 flex flex-col">
+            <div className="flex-1 min-h-[calc(100vh-200px)]">
+              <EggJugglingGame 
+                isQuizActive={!showResults}
+                onScoreUpdate={setMiniGameScore}
+                width={240}
+                height={700}
+                className="w-full h-full"
+              />
+            </div>
+          </div>
+          
+          {/* Quiz Panel */}
+          <div className="w-full lg:w-2/3 order-1 lg:order-2">
+            <div className="bg-white rounded-lg shadow-lg p-6 relative">
           {/* Progress Bar */}
           <div className="absolute top-0 left-0 h-2 bg-blue-500 transition-all duration-300" style={{ width: `${((currentQuestionIndex + 1) / questions.length) * 100}%` }}></div>
           
@@ -133,6 +151,8 @@ const Quiz = ({ params }) => {
               {currentQuestionIndex === questions.length - 1 ? "Submit" : "Next Question"}
             </button>
           )}
+            </div>
+          </div>
         </div>
       ) : (
         <Results
@@ -144,6 +164,7 @@ const Quiz = ({ params }) => {
           percentage={percentage}
           timeSpent={totalTimeSpent}
           averageTimePerQuestion={averageTimePerQuestion}
+          miniGameScore={miniGameScore}
         />
       )}
     </div>

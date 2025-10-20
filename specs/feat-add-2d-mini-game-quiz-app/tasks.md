@@ -41,47 +41,47 @@
 - Tests colocated with source files
 
 ## Phase 3.1: Setup
-- [ ] T001 Create game component directory structure in src/components/
-- [ ] T002 Create game hooks directory structure in src/hooks/
-- [ ] T003 Create game utilities directory structure in src/utils/
-- [ ] T004 [P] Configure ESLint rules for Canvas and game development
+- [x] T001 Create game component directory structure in src/components/
+- [x] T002 Create game hooks directory structure in src/hooks/
+- [x] T003 Create game utilities directory structure in src/utils/
+- [x] T004 [P] Configure ESLint rules for Canvas and game development
 
 ## Phase 3.2: Tests First (TDD) ⚠️ MUST COMPLETE BEFORE 3.3
 **CRITICAL: These tests MUST be written and MUST FAIL before ANY implementation**
-- [ ] T005 [P] Contract test EggJugglingGame component in src/components/__tests__/EggJugglingGame.test.js
-- [ ] T006 [P] Contract test GameCanvas component in src/components/__tests__/GameCanvas.test.js
-- [ ] T007 [P] Contract test GameSettings component in src/components/__tests__/GameSettings.test.js
-- [ ] T008 [P] Contract test useGameState hook in src/hooks/__tests__/useGameState.test.js
-- [ ] T009 [P] Contract test useGamePhysics hook in src/hooks/__tests__/useGamePhysics.test.js
-- [ ] T010 [P] Physics engine tests in src/utils/__tests__/physics.test.js
-- [ ] T011 [P] Game engine tests in src/utils/__tests__/gameEngine.test.js
-- [ ] T012 [P] Integration test game-quiz integration in tests/integration/game-quiz-integration.test.js
+- [x] T005 [P] Contract test EggJugglingGame component in src/components/__tests__/EggJugglingGame.test.js
+- [x] T006 [P] Contract test GameCanvas component in src/components/__tests__/GameCanvas.test.js
+- [x] T007 [P] Contract test GameSettings component in src/components/__tests__/GameSettings.test.js
+- [x] T008 [P] Contract test useGameState hook in src/hooks/__tests__/useGameState.test.js
+- [x] T009 [P] Contract test useGamePhysics hook in src/hooks/__tests__/useGamePhysics.test.js
+- [x] T010 [P] Physics engine tests in src/utils/__tests__/physics.test.js
+- [x] T011 [P] Game engine tests in src/utils/__tests__/gameEngine.test.js
+- [x] T012 [P] Integration test game-quiz integration in tests/integration/game-quiz-integration.test.js
 
 ## Phase 3.3: Core Implementation (ONLY after tests are failing)
-- [ ] T013 [P] Physics utilities in src/utils/physics.js
-- [ ] T014 [P] Game engine core in src/utils/gameEngine.js
-- [ ] T015 [P] useGamePhysics hook in src/hooks/useGamePhysics.js
-- [ ] T016 useGameState hook in src/hooks/useGameState.js (depends on T015)
-- [ ] T017 [P] GameCanvas component in src/components/GameCanvas.jsx
-- [ ] T018 [P] GameSettings component in src/components/GameSettings.jsx
-- [ ] T019 EggJugglingGame main component in src/components/EggJugglingGame.jsx (depends on T016, T017)
-- [ ] T020 Game context provider in src/context/GameContext.js
+- [x] T013 [P] Physics utilities in src/utils/physics.js
+- [x] T014 [P] Game engine core in src/utils/gameEngine.js
+- [x] T015 [P] useGamePhysics hook in src/hooks/useGamePhysics.js
+- [x] T016 useGameState hook in src/hooks/useGameState.js (depends on T015)
+- [x] T017 [P] GameCanvas component in src/components/GameCanvas.jsx
+- [x] T018 [P] GameSettings component in src/components/GameSettings.jsx
+- [x] T019 EggJugglingGame main component in src/components/EggJugglingGame.jsx (depends on T016, T017)
+- [x] T020 Game context provider in src/context/GameContext.js
 
 ## Phase 3.4: Integration
-- [ ] T021 Integrate game component into quiz page src/app/quiz/[subject]/page.jsx
-- [ ] T022 Update PointsContext to handle mini-game scoring in src/context/PointsContext.js
-- [ ] T023 Add game settings to existing settings UI
-- [ ] T024 Update Results component to show mini-game scores in src/components/Results.jsx
-- [ ] T025 Add responsive design for mobile devices
+- [x] T021 Integrate game component into quiz page src/app/quiz/[subject]/page.jsx
+- [x] T022 Update PointsContext to handle mini-game scoring in src/context/PointsContext.js
+- [x] T023 Add game settings to existing settings UI
+- [x] T024 Update Results component to show mini-game scores in src/components/Results.jsx
+- [x] T025 Add responsive design for mobile devices
 
 ## Phase 3.5: Polish
-- [ ] T026 [P] Performance optimization for Canvas rendering
+- [x] T026 [P] Performance optimization for Canvas rendering
 - [ ] T027 [P] Add game sound effects (optional)
-- [ ] T028 [P] Unit tests for edge cases in src/components/__tests__/
-- [ ] T029 [P] Performance tests in tests/performance/game-performance.test.js
-- [ ] T030 [P] Update README.md with game features
-- [ ] T031 Code cleanup and remove console.logs
-- [ ] T032 Run quickstart.md validation tests
+- [x] T028 [P] Unit tests for edge cases in src/components/__tests__/
+- [x] T029 [P] Performance tests in tests/performance/game-performance.test.js
+- [x] T030 [P] Update README.md with game features
+- [x] T031 Code cleanup and remove console.logs
+- [x] T032 Run quickstart.md validation tests
 
 ## Dependencies
 - Tests (T005-T012) before implementation (T013-T025)

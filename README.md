@@ -33,7 +33,15 @@ This **Quiz App** is built with **Next.js** and **Tailwind CSS**, providing a dy
   - Average Time Per Question
 - The results page features icons and colors for improved readability, along with a celebratory **confetti** effect.
 
-### 6. **Responsive Design**
+### 6. **2D Egg-Juggling Mini-Game** 🥚🎮
+- **Interactive Mini-Game**: Play an engaging egg-juggling game while answering quiz questions
+- **Bonus Scoring**: Earn bonus points by successfully bouncing falling eggs
+- **Configurable Settings**: Adjust egg quantity, spawn rate, and difficulty
+- **Distraction Challenge**: The mini-game adds an extra layer of difficulty to test focus
+- **Mobile-Friendly**: Touch-responsive controls for mobile devices
+- **Performance Optimized**: Smooth 60fps HTML5 Canvas animation
+
+### 7. **Responsive Design**
 - Fully responsive, ensuring seamless functionality across all devices, including mobile and desktop.
 
 ## Technologies Used
@@ -44,6 +52,8 @@ This **Quiz App** is built with **Next.js** and **Tailwind CSS**, providing a dy
 - **Confetti**: For celebratory effects on the results page.
 - **react-use**: For handling window sizes, particularly for the confetti effect.
 - **JavaScript/ES6**: For component building and quiz logic.
+- **HTML5 Canvas**: For 2D game rendering and animations.
+- **Jest & React Testing Library**: For comprehensive testing coverage.
 
 ## How to Run the Project
 
@@ -62,7 +72,12 @@ cd quiz-app
 npm install
 ```
 
-### 4. Run the Development Server
+### 4. Run Tests (Optional)
+```bash
+npm test
+```
+
+### 5. Run the Development Server
 ```bash
 npm run dev
 ```
@@ -71,22 +86,81 @@ Open your browser and go to `http://localhost:3000` to see the app in action.
 ## Project Structure
 
 - `public/data/`: Contains JSON files for questions.
-- `components/Results.jsx`: Displays the quiz results.
-- `components/QuestionTimer.jsx`: Manages the countdown timer for questions.
-- `components/SubjectCard.jsx`: Displays the subjects available for selection.
-- `pages/index.js`: Home page listing available subjects.
-- `pages/quiz/[subject].js`: Quiz page for each subject.
-- `public/images`: Contains static assets like images.
-- `context/PointsContext.js`: Context for managing points state.
-- `layout.js`: Includes header and footer components.
+- `src/components/`: React components including quiz and game components
+  - `Results.jsx`: Displays quiz results with mini-game scores
+  - `QuestionTimer.jsx`: Manages the countdown timer for questions
+  - `SubjectCard.jsx`: Displays subjects available for selection
+  - `EggJugglingGame.jsx`: Main mini-game component
+  - `GameCanvas.jsx`: HTML5 Canvas rendering component
+  - `GameSettings.jsx`: Game configuration controls
+- `src/hooks/`: Custom React hooks
+  - `useGameState.js`: Game state management
+  - `useGamePhysics.js`: Physics calculations
+- `src/utils/`: Utility functions
+  - `physics.js`: Game physics engine
+  - `gameEngine.js`: Core game engine
+- `src/context/`: React context providers
+  - `PointsContext.js`: Quiz and mini-game scoring
+  - `GameContext.js`: Game state management
+- `src/app/`: Next.js app router pages
+- `tests/`: Test files for components and integration
+
+## Mini-Game Features
+
+### How to Play
+1. **Start a Quiz**: Select any subject to begin
+2. **Enable Mini-Game**: Use the settings panel to enable/disable the game
+3. **Juggle Eggs**: Tap or click falling eggs to bounce them up
+4. **Earn Points**: +1 point for each successful bounce, -1 for dropped eggs
+5. **Bonus Scoring**: Mini-game score adds bonus multiplier to final quiz score
+
+### Game Settings
+- **Enable/Disable**: Toggle the mini-game on/off
+- **Egg Quantity**: Control how many eggs appear (1-10)
+- **Spawn Rate**: Adjust how frequently eggs drop (5-30 per minute)
+- **Difficulty**: Easy, Medium, or Hard modes
+
+### Performance
+- **60 FPS**: Smooth animation using requestAnimationFrame
+- **Mobile Optimized**: Touch-friendly controls
+- **Memory Efficient**: Optimized rendering and object pooling
 
 ## Future Improvements
 
-- **Backend Integration**: To allow dynamic question loading, user authentication, and real-time leaderboard updates.
-- **User Authentication**: Implement login and signup features to track user progress and performance.
-- **Difficulty Levels**: Add multiple difficulty levels for each subject to enhance the quiz experience.
-- **Question Bank Expansion**: Expand the quiz by adding more subjects and questions.
+- **Backend Integration**: Dynamic question loading, user authentication, and leaderboards
+- **User Authentication**: Login and signup features to track progress
+- **Advanced Mini-Games**: Additional game modes and power-ups
+- **Multiplayer**: Real-time multiplayer quiz competitions
+- **Sound Effects**: Audio feedback for game interactions
+- **Question Bank Expansion**: More subjects and difficulty levels
+
+## Testing
+
+The project includes comprehensive test coverage:
+
+```bash
+# Run all tests
+npm test
+
+# Run tests in watch mode
+npm run test:watch
+
+# Run performance tests
+npm test -- --testPathPattern=performance
+```
+
+### Test Coverage
+- **Unit Tests**: Component and hook testing
+- **Integration Tests**: Quiz-game integration
+- **Performance Tests**: Frame rate and memory usage
+- **Contract Tests**: API and component contracts
 
 ## Contributions
 
 Feel free to fork the repository and submit pull requests for any improvements or features you'd like to add. Contributions are welcome!
+
+### Development Guidelines
+- Follow the existing code style and patterns
+- Add tests for new features
+- Update documentation for significant changes
+- Ensure mobile compatibility for new UI components
