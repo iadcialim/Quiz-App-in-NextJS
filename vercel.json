@@ -1,5 +1,4 @@
 {
-  "name": "quiz-app-nextjs",
   "functions": {
     "pages/api/**/*.js": {
       "maxDuration": 10

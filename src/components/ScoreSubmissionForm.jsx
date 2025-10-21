@@ -15,13 +15,18 @@ export default function ScoreSubmissionForm({ score, onSuccess, onError }) {
         body: JSON.stringify({ name: userName.trim(), score })
       });
       
+      const data = await response.json();
+      
       if (response.ok) {
         onSuccess?.(userName.trim());
       } else {
-        onError?.('Failed to submit score');
+        // Show specific error message from API
+        const errorMsg = data.error || data.details || 'Failed to submit score';
+        onError?.(errorMsg);
       }
     } catch (error) {
-      onError?.('Network error');
+      console.error('Submission error:', error);
+      onError?.('Network error: ' + error.message);
     } finally {
       setIsSubmitting(false);
     }

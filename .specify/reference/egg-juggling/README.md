@@ -1,6 +1,7 @@
 I want to add a feature into this existing project.
 From the landing screen, when a user selects a quiz, it goes to quiz page showing the 1st question of the quiz.
-Now, at the left panel of this question page, I want to add a 2D mini-game with the purpose of confusing or making the user to lose focus on the quiz like selecting wrong answers or ran out of time because of playing this other mini game.
+Now, at the left panel of this question page, I want to add a 2D mini-game with the purpose of confusing or making the user to lose focus on the quiz
+like selecting wrong answers or ran out of time because of playing this other mini game.
 The mini-game will about juggling eggs.
 While quiz is not yet finished, eggs will randomly drop from above and going down to hit the bottom of the screen.
 The goal of the user is to NOT let the eggs drop by tapping on it.

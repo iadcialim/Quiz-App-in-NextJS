@@ -1,11 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { FaTrophy, FaCheckCircle, FaTimesCircle, FaQuestionCircle, FaPercentage, FaClock, FaStopwatch, FaGamepad } from "react-icons/fa";
+import { FaTrophy, FaCheckCircle, FaTimesCircle, FaQuestionCircle, FaPercentage, FaClock, FaStopwatch, FaGamepad, FaSpinner } from "react-icons/fa";
 import Confetti from 'react-confetti';
 import { useWindowSize } from 'react-use';
 import ScoreSubmissionForm from './ScoreSubmissionForm';
 import Leaderboard from './Leaderboard';
+import ErrorBoundary from './ErrorBoundary';
 
 const Results = ({
   score,
@@ -22,6 +23,8 @@ const Results = ({
   const [showConfetti, setShowConfetti] = useState(true);
   const [showSubmissionForm, setShowSubmissionForm] = useState(true);
   const [submittedUser, setSubmittedUser] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
   const { width, height } = useWindowSize();
 
   // Disable confetti after a few seconds
@@ -151,17 +154,50 @@ const Results = ({
         
         {/* Right Panel - Score Submission & Leaderboard */}
         <div className="w-full lg:w-96 space-y-6">
-          {showSubmissionForm && (
-            <ScoreSubmissionForm 
-              score={score}
-              onSuccess={(submittedName) => {
-                setSubmittedUser(submittedName);
-                setShowSubmissionForm(false);
-              }}
-              onError={(error) => alert(`Error: ${error}`)}
-            />
-          )}
-          <Leaderboard currentUserName={submittedUser} />
+          <ErrorBoundary>
+            {isLoading && (
+              <div className="flex items-center justify-center p-4 bg-white rounded-lg shadow-md">
+                <FaSpinner className="animate-spin text-blue-500 mr-2" />
+                <span>Processing...</span>
+              </div>
+            )}
+            
+            {error && (
+              <div className="bg-red-50 border border-red-200 rounded-lg p-4 text-red-700">
+                <p className="font-semibold">Error</p>
+                <p>{error}</p>
+                <button 
+                  onClick={() => setError(null)}
+                  className="mt-2 text-sm underline hover:no-underline"
+                >
+                  Dismiss
+                </button>
+              </div>
+            )}
+            
+            {showSubmissionForm && !isLoading && (
+              <div className="animate-fade-in">
+                <ScoreSubmissionForm 
+                  score={score}
+                  onSubmit={() => setIsLoading(true)}
+                  onSuccess={(submittedName) => {
+                    setIsLoading(false);
+                    setSubmittedUser(submittedName);
+                    setShowSubmissionForm(false);
+                    setError(null);
+                  }}
+                  onError={(error) => {
+                    setIsLoading(false);
+                    setError(error);
+                  }}
+                />
+              </div>
+            )}
+            
+            <div className="animate-slide-up">
+              <Leaderboard currentUserName={submittedUser} />
+            </div>
+          </ErrorBoundary>
         </div>
       </div>
     </div>
