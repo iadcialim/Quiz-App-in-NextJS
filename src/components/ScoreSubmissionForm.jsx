@@ -16,7 +16,7 @@ export default function ScoreSubmissionForm({ score, onSuccess, onError }) {
       });
       
       if (response.ok) {
-        onSuccess?.();
+        onSuccess?.(userName.trim());
       } else {
         onError?.('Failed to submit score');
       }

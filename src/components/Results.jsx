@@ -5,6 +5,7 @@ import { FaTrophy, FaCheckCircle, FaTimesCircle, FaQuestionCircle, FaPercentage,
 import Confetti from 'react-confetti';
 import { useWindowSize } from 'react-use';
 import ScoreSubmissionForm from './ScoreSubmissionForm';
+import Leaderboard from './Leaderboard';
 
 const Results = ({
   score,
@@ -19,6 +20,8 @@ const Results = ({
 }) => {
   // Set the state for confetti
   const [showConfetti, setShowConfetti] = useState(true);
+  const [showSubmissionForm, setShowSubmissionForm] = useState(true);
+  const [submittedUser, setSubmittedUser] = useState(null);
   const { width, height } = useWindowSize();
 
   // Disable confetti after a few seconds
@@ -30,13 +33,17 @@ const Results = ({
   }, []);
 
   return (
-    <div className="p-6 bg-gray-100 min-h-screen flex flex-col items-center">
+    <div className="p-6 bg-gray-100 min-h-screen">
       {showConfetti && <Confetti width={width} height={height} numberOfPieces={700} />}
 
       <h2 className="text-3xl font-bold mb-6 text-center text-blue-600">
         Quiz Results
       </h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 w-full max-w-4xl">
+      
+      <div className="flex flex-col lg:flex-row gap-8 max-w-7xl mx-auto">
+        {/* Left Panel - Quiz Results */}
+        <div className="flex-1">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
         
         {/* Total Points */}
         <div className="p-5 bg-white shadow-md rounded-lg flex items-center justify-between hover:shadow-lg transition-shadow duration-300">
@@ -128,26 +135,34 @@ const Results = ({
           <FaTrophy className="text-pink-500 text-3xl" />
         </div>
 
-        {/* Final Score */}
-        <div className="p-5 bg-white shadow-md rounded-lg flex items-center justify-between col-span-1 md:col-span-3 text-center hover:shadow-lg transition-shadow duration-300">
-          <div className="w-full">
-            <p className="text-xl font-semibold mb-2">
-              Quiz Score: {correctAnswers * 4} + Mini-Game: {miniGameScore} = Total: {score}
-            </p>
-            <p className="text-lg text-gray-600">
-              You scored {score} out of {totalQuestions * 4 + Math.max(0, miniGameScore)} possible points!
-            </p>
+            {/* Final Score */}
+            <div className="p-5 bg-white shadow-md rounded-lg flex items-center justify-between col-span-1 md:col-span-3 text-center hover:shadow-lg transition-shadow duration-300">
+              <div className="w-full">
+                <p className="text-xl font-semibold mb-2">
+                  Quiz Score: {correctAnswers * 4} + Mini-Game: {miniGameScore} = Total: {score}
+                </p>
+                <p className="text-lg text-gray-600">
+                  You scored {score} out of {totalQuestions * 4 + Math.max(0, miniGameScore)} possible points!
+                </p>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-      
-      {/* Score Submission Form */}
-      <div className="mt-8 w-full max-w-md">
-        <ScoreSubmissionForm 
-          score={score}
-          onSuccess={() => alert('Score submitted successfully!')}
-          onError={(error) => alert(`Error: ${error}`)}
-        />
+        
+        {/* Right Panel - Score Submission & Leaderboard */}
+        <div className="w-full lg:w-96 space-y-6">
+          {showSubmissionForm && (
+            <ScoreSubmissionForm 
+              score={score}
+              onSuccess={(submittedName) => {
+                setSubmittedUser(submittedName);
+                setShowSubmissionForm(false);
+              }}
+              onError={(error) => alert(`Error: ${error}`)}
+            />
+          )}
+          <Leaderboard currentUserName={submittedUser} />
+        </div>
       </div>
     </div>
   );
