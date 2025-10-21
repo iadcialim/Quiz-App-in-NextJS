@@ -10,17 +10,17 @@ This feature implements online deployment with score submission functionality. T
 
 ## Setup Tasks
 
-- [ ] **T001** Install Vercel Postgres dependency
+- [x] **T001** Install Vercel Postgres dependency
   - **File**: `package.json`
   - **Action**: Add `@vercel/postgres` to dependencies
   - **Dependencies**: None
 
-- [ ] **T002** Create database utility module
+- [x] **T002** Create database utility module
   - **File**: `lib/db.js`
   - **Action**: Implement database connection and query functions
   - **Dependencies**: T001
 
-- [ ] **T003** Create environment configuration template
+- [x] **T003** Create environment configuration template
   - **File**: `.env.local.example`
   - **Action**: Document required environment variables
   - **Dependencies**: None
@@ -81,7 +81,7 @@ This feature implements online deployment with score submission functionality. T
   - **Action**: Configure API function timeouts and deployment settings
   - **Dependencies**: T008, T009
 
-- [ ] **T014** [P] Create database schema setup
+- [x] **T014** [P] Create database schema setup
   - **File**: `sql/schema.sql`
   - **Action**: Create score_submissions table with indexes
   - **Dependencies**: None
