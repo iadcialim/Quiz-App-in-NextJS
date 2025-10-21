@@ -27,22 +27,22 @@ This feature implements online deployment with score submission functionality. T
 
 ## Test Tasks [P]
 
-- [ ] **T004** [P] Create API endpoint tests
+- [x] **T004** [P] Create API endpoint tests
   - **File**: `tests/api/scores.test.js`
   - **Action**: Test score submission endpoint validation and responses
   - **Dependencies**: T002
 
-- [ ] **T005** [P] Create leaderboard API tests
+- [x] **T005** [P] Create leaderboard API tests
   - **File**: `tests/api/leaderboard.test.js`
   - **Action**: Test leaderboard retrieval and sorting
   - **Dependencies**: T002
 
-- [ ] **T006** [P] Create score submission form tests
+- [x] **T006** [P] Create score submission form tests
   - **File**: `src/components/__tests__/ScoreSubmissionForm.test.js`
   - **Action**: Test form validation and submission states
   - **Dependencies**: None
 
-- [ ] **T007** [P] Create leaderboard component tests
+- [x] **T007** [P] Create leaderboard component tests
   - **File**: `src/components/__tests__/Leaderboard.test.js`
   - **Action**: Test leaderboard display and user highlighting
   - **Dependencies**: None
