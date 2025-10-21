@@ -47,39 +47,85 @@ This feature implements online deployment with score submission functionality. T
   - **Action**: Test leaderboard display and user highlighting
   - **Dependencies**: None
 
-## Core Implementation Tasks
+## API Development Cycle 1: Score Submission
 
-- [ ] **T008** Create score submission API endpoint
+- [x] **T008** Create score submission API endpoint
   - **File**: `pages/api/scores.js`
   - **Action**: Implement POST endpoint for score submission with validation
   - **Dependencies**: T002, T004
+
+- [ ] **T008a** Deploy score submission API
+  - **Command**: `vercel --prod`
+  - **Action**: Deploy API to test in isolation
+  - **Dependencies**: T008
+
+- [ ] **T008b** Test deployed score submission API
+  - **Command**: `curl -X POST [deployed-url]/api/scores -d '{"name":"test","score":100}'`
+  - **Action**: Verify API works in production
+  - **Dependencies**: T008a
+
+- [ ] **T008c** Create ScoreSubmissionForm component
+  - **File**: `src/components/ScoreSubmissionForm.jsx`
+  - **Action**: Implement name input form with validation
+  - **Dependencies**: T006, T008b
+
+- [ ] **T008d** Integrate ScoreSubmissionForm with API
+  - **File**: `src/components/ScoreSubmissionForm.jsx`
+  - **Action**: Connect form to `/api/scores` endpoint
+  - **Dependencies**: T008c
+
+- [ ] **T008e** Manual testing steps for score submission
+  - **Action**: Document local and online testing procedures
+  - **Dependencies**: T008d
+
+## API Development Cycle 2: Leaderboard
 
 - [ ] **T009** Create leaderboard API endpoint
   - **File**: `pages/api/leaderboard.js`
   - **Action**: Implement GET endpoint for top 20 scores
   - **Dependencies**: T002, T005
 
-- [ ] **T010** [P] Create ScoreSubmissionForm component
-  - **File**: `src/components/ScoreSubmissionForm.jsx`
-  - **Action**: Implement name input form with validation
-  - **Dependencies**: T006
+- [ ] **T009a** Deploy leaderboard API
+  - **Command**: `vercel --prod`
+  - **Action**: Deploy API to test in isolation
+  - **Dependencies**: T009
 
-- [ ] **T011** [P] Create Leaderboard component
+- [ ] **T009b** Test deployed leaderboard API
+  - **Command**: `curl [deployed-url]/api/leaderboard`
+  - **Action**: Verify API returns leaderboard data
+  - **Dependencies**: T009a
+
+- [ ] **T009c** Create Leaderboard component
   - **File**: `src/components/Leaderboard.jsx`
   - **Action**: Implement leaderboard display with user highlighting
-  - **Dependencies**: T007
+  - **Dependencies**: T007, T009b
+
+- [ ] **T009d** Integrate Leaderboard with API
+  - **File**: `src/components/Leaderboard.jsx`
+  - **Action**: Connect component to `/api/leaderboard` endpoint
+  - **Dependencies**: T009c
+
+- [ ] **T009e** Manual testing steps for leaderboard
+  - **Action**: Document local and online testing procedures
+  - **Dependencies**: T009d
+
+## Web App Integration
 
 - [ ] **T012** Enhance Results component
   - **File**: `src/components/Results.jsx`
   - **Action**: Add score submission form and leaderboard integration
-  - **Dependencies**: T010, T011
+  - **Dependencies**: T008d, T009d
+
+- [ ] **T012a** Manual testing steps for complete flow
+  - **Action**: Document end-to-end testing procedures (local and online)
+  - **Dependencies**: T012
 
 ## Integration Tasks
 
 - [ ] **T013** Create Vercel deployment configuration
   - **File**: `vercel.json`
   - **Action**: Configure API function timeouts and deployment settings
-  - **Dependencies**: T008, T009
+  - **Dependencies**: T008
 
 - [x] **T014** [P] Create database schema setup
   - **File**: `sql/schema.sql`
@@ -89,9 +135,14 @@ This feature implements online deployment with score submission functionality. T
 - [ ] **T015** Add integration test for complete flow
   - **File**: `tests/integration/score-submission-flow.test.js`
   - **Action**: Test end-to-end score submission and leaderboard display
-  - **Dependencies**: T008, T009, T012
+  - **Dependencies**: T012
 
-## Deployment Tasks
+- [ ] **T015a** Run integration tests
+  - **Command**: `npm test -- tests/integration/`
+  - **Action**: Execute end-to-end tests, fix any failures
+  - **Dependencies**: T015
+
+## Initial Deployment Setup
 
 - [ ] **T019** Install Vercel CLI and login
   - **Command**: `npm install -g vercel && vercel login`
@@ -108,10 +159,12 @@ This feature implements online deployment with score submission functionality. T
   - **Action**: Execute schema creation on production database
   - **Dependencies**: T020, T014
 
-- [ ] **T022** Deploy application to Vercel
+## Final Deployment
+
+- [ ] **T022** Final application deployment
   - **Command**: `vercel --prod`
-  - **Action**: Deploy app with environment variables auto-configured
-  - **Dependencies**: T021, T015
+  - **Action**: Deploy complete application with all features
+  - **Dependencies**: T021, T015a
 
 ## Polish Tasks [P]
 
@@ -153,13 +206,12 @@ This feature implements online deployment with score submission functionality. T
 ## Dependencies Summary
 
 - **T001** → T002 → T004, T005, T008, T009
-- **T004** → T008
-- **T005** → T009
-- **T006** → T010
-- **T007** → T011
-- **T010, T011** → T012
-- **T008, T009** → T013
-- **T008, T009, T012** → T015
+- **T008** → T008a → T008b → T008c → T008d → T008e
+- **T009** → T009a → T009b → T009c → T009d → T009e
+- **T008d, T009d** → T012 → T012a
+- **T008** → T013 → T019 → T020 → T021
+- **T012** → T015 → T015a
+- **T015a** → T022
 - **T012** → T016, T017
 - **T008** → T018
 
@@ -175,9 +227,9 @@ Each task must satisfy:
 
 ## Deployment Verification
 
-- [ ] **T023** Verify deployment and functionality
-  - **Command**: `curl -X POST [deployed-url]/api/scores -d '{"name":"test","score":100}'`
-  - **Action**: Test live API endpoints and database connectivity
+- [ ] **T023** Full system verification
+  - **Command**: Complete quiz → submit score → verify leaderboard
+  - **Action**: End-to-end user flow testing on live deployment
   - **Dependencies**: T022
 
 ## Deployment Checklist
@@ -192,7 +244,7 @@ Each task must satisfy:
 
 ---
 
-**Total Tasks**: 23  
-**Estimated Time**: 10-14 hours  
-**Parallel Opportunities**: 8 tasks can run in parallel  
-**Critical Path**: T001 → T002 → T008/T009 → T012 → T015 → T019 → T020 → T021 → T022 → T023
+**Total Tasks**: 30  
+**Estimated Time**: 14-18 hours  
+**Parallel Opportunities**: 4 tasks can run in parallel  
+**Critical Path**: T001 → T002 → T008 → T008a → T008b → T008c → T008d → T009 → T009a → T009b → T009c → T009d → T012 → T022 → T023
