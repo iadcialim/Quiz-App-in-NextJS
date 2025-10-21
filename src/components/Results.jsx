@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { FaTrophy, FaCheckCircle, FaTimesCircle, FaQuestionCircle, FaPercentage, FaClock, FaStopwatch, FaGamepad } from "react-icons/fa";
 import Confetti from 'react-confetti';
 import { useWindowSize } from 'react-use';
+import ScoreSubmissionForm from './ScoreSubmissionForm';
 
 const Results = ({
   score,
@@ -138,6 +139,15 @@ const Results = ({
             </p>
           </div>
         </div>
+      </div>
+      
+      {/* Score Submission Form */}
+      <div className="mt-8 w-full max-w-md">
+        <ScoreSubmissionForm 
+          score={score}
+          onSuccess={() => alert('Score submitted successfully!')}
+          onError={(error) => alert(`Error: ${error}`)}
+        />
       </div>
     </div>
   );

@@ -66,12 +66,12 @@ This feature implements online deployment with score submission functionality. T
   - **Result**: API deployed, responds with 401 (auth protection active)
   - **Dependencies**: T008a
 
-- [ ] **T008c** Create ScoreSubmissionForm component
+- [x] **T008c** Create ScoreSubmissionForm component
   - **File**: `src/components/ScoreSubmissionForm.jsx`
   - **Action**: Implement name input form with validation
   - **Dependencies**: T006, T008b
 
-- [ ] **T008d** Integrate ScoreSubmissionForm with API
+- [x] **T008d** Integrate ScoreSubmissionForm with API
   - **File**: `src/components/ScoreSubmissionForm.jsx`
   - **Action**: Connect form to `/api/scores` endpoint
   - **Dependencies**: T008c
@@ -113,7 +113,7 @@ This feature implements online deployment with score submission functionality. T
 
 ## Web App Integration
 
-- [ ] **T012** Enhance Results component
+- [x] **T012** Enhance Results component
   - **File**: `src/components/Results.jsx`
   - **Action**: Add score submission form and leaderboard integration
   - **Dependencies**: T008d, T009d
