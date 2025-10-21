@@ -54,9 +54,10 @@ This feature implements online deployment with score submission functionality. T
   - **Action**: Implement POST endpoint for score submission with validation
   - **Dependencies**: T002, T004
 
-- [ ] **T008a** Deploy score submission API
+- [x] **T008a** Deploy score submission API
   - **Command**: `vercel --prod`
-  - **Action**: Deploy API to test in isolation
+  - **Action**: Deploy API to test in isolation ✅ DEPLOYED
+  - **URL**: https://quiz-app-nextjs-69tz7wwh8-iads-projects-19c5d1fa.vercel.app
   - **Dependencies**: T008
 
 - [ ] **T008b** Test deployed score submission API
@@ -122,7 +123,7 @@ This feature implements online deployment with score submission functionality. T
 
 ## Integration Tasks
 
-- [ ] **T013** Create Vercel deployment configuration
+- [x] **T013** Create Vercel deployment configuration
   - **File**: `vercel.json`
   - **Action**: Configure API function timeouts and deployment settings
   - **Dependencies**: T008
@@ -144,7 +145,7 @@ This feature implements online deployment with score submission functionality. T
 
 ## Initial Deployment Setup
 
-- [ ] **T019** Install Vercel CLI and login
+- [x] **T019** Install Vercel CLI and login
   - **Command**: `npm install -g vercel && vercel login`
   - **Action**: Setup Vercel CLI for automated deployment
   - **Dependencies**: T013
