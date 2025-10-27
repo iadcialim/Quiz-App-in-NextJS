@@ -77,8 +77,8 @@ npm test -- --coverage     # Run tests with coverage report
 4. **Performance Tests**: Ensure 60fps game rendering, <100ms scoring calculations
 
 ## Recent Changes
-### feat-improve-scoring-v2 (IN PROGRESS - Phase 1 Complete)
-**Status**: Planning phase complete, ready for @tasks command
+### feat-improve-scoring-v2 (IN PROGRESS - Phase 3 Complete)
+**Status**: Tasks generated, ready for implementation
 
 **Completed**:
 - ✅ Specification created (26 functional requirements)
@@ -87,14 +87,15 @@ npm test -- --coverage     # Run tests with coverage report
 - ✅ Data model (5 entities: QuizMetrics, QuizScore, GameMetrics, GameScore, ScoringConstants)
 - ✅ Contracts created (scoring-utils, results-display)
 - ✅ Quickstart guide (10 manual test scenarios)
+- ✅ Tasks generated (13 dependency-ordered tasks)
 
 **Pending**:
-- ⏳ Execute @tasks command to generate task list
-- ⏳ Implement scoring utilities (`src/utils/scoring.js`)
-- ⏳ Create scoring constants (`src/constants/scoring.js`)
-- ⏳ Update Results component (split into Quiz/Game sections)
-- ⏳ Extend context providers (add breakdown objects)
-- ⏳ Write contract tests (TDD approach)
+- ⏳ T001: Create scoring constants module
+- ⏳ T002-T006: Write contract and integration tests (TDD)
+- ⏳ T007-T008: Implement scoring utilities
+- ⏳ T009-T010: Update context providers
+- ⏳ T011: Refactor Results component
+- ⏳ T012-T013: Unit tests and manual validation
 
 **Key Requirements**:
 - Change Results title to "Your Score" (remove "You scored X out of Y")
