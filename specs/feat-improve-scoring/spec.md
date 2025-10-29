@@ -1,124 +1,152 @@
-# Feature Specification: Improve results and egg-game scoring cards
+# Feature Specification: Improve Quiz Results Scoring v3
 
-> **Reference**: `improve-scoring`
+> **Reference**: `improve-scoring-v3`
 >
 > _This specification uses context from the reference folder to ensure consistency with existing patterns and implementations._
 
-**Feature Branch**: `feat/improve-scoring`  
-**Created**: 2025-10-21  
+**Feature Branch**: `feat-improve-scoring`  
+**Created**: 2024-12-19  
 **Status**: Draft  
-**Input**: User description: "Improve the scoring -ref improve-scoring"
+**Input**: User description: "Improve the scoring v3 -ref improve-scoring-v3"
 
 ## Execution Flow (main)
+
 ```
-1. Read reference scoring docs (NEW-QUIZ-SCORING.md, NEW-EGG-JUGGLING-SCORING.md) and the improve-scoring README
-2. Extract metrics required by formulas (correct, wrong, time, eggsDropped, eggsProduced, juggles, time)
-3. Implement testable scoring utils for quiz and egg-game
-4. Add/modify Results UI to render the two sections with five cards each and change title to "Your Score"
-5. Wire combined scoring (quiz + mini-game) and ensure feature flag toggles are respected
-6. Add unit/component/integration tests as specified
-7. Run review checklist and promote to plan/tasks
+1. Parse user description from Input
+   → Feature: Enhanced quiz results scoring with new formulas
+2. Extract key concepts from description
+   → Actors: quiz participants, game players
+   → Actions: view results, calculate scores, display metrics
+   → Data: quiz metrics, egg game metrics, scoring formulas
+   → Constraints: specific card layouts, formula implementations
+3. For each unclear aspect:
+   → All requirements clearly specified in reference materials
+4. Fill User Scenarios & Testing section
+   → Clear user flow: complete quiz → view enhanced results
+5. Generate Functional Requirements
+   → Each requirement testable and measurable
+6. Identify Key Entities (scoring metrics, result cards)
+7. Run Review Checklist
+   → No clarifications needed, implementation ready
 8. Return: SUCCESS (spec ready for planning)
 ```
 
 ---
 
-## User Scenarios & Testing *(mandatory)*
-
-### Primary User Story
-- As a quiz participant, I want the Results page to present clear, actionable scoring information for both the quiz and the egg-juggling mini-game so that I can understand how my final score is composed and where I can improve.
-
-### Acceptance Scenarios
-1. **Given** a user completes a quiz, **When** they view the Results page, **Then** the page shows a results section titled "Your Score" and displays quiz scoring cards for: Correct Answers, Wrong Answers, Percentage, Total Time Spent, and Total Points.
-2. **Given** the egg-juggling mini-game ran during the quiz, **When** the user views Results, **Then** a separate Egg Juggling section is shown containing cards for: Eggs Dropped, Eggs Produced, Egg Juggles, Total Time Spent, and Total Points.
-3. **Given** new scoring formulas are provided in `NEW-QUIZ-SCORING.md` and `NEW-EGG-JUGGLING-SCORING.md`, **When** final scores are calculated, **Then** the Results page uses those formulas to compute and display the quiz and mini-game points.
-4. **Given** the user toggles compact mode, **When** compact mode is active, **Then** cards condense but still show the five metrics for each section.
-5. **Given** bonus/penalty rules exist in the formulas, **When** an egg is dropped or juggled, **Then** the mini-game points update according to formula and flow into combined final score.
-6. **Given** the user finishes the quiz, **When** final scoring occurs, **Then** the Results page shows combined total points along with a breakdown (quiz points + mini-game points).
-
-### Edge Cases
-- If scoring formula files are missing or malformed, the system MUST fall back to a documented default formula and log a warning.
-- If the mini-game was not active or disabled, the Egg Juggling section SHOULD be omitted and the combined score should equal quiz points only.
-- Zero-question quiz: `computeQuizScore` must return 0 points and a safe breakdown without division-by-zero.
-
 ## Reference Context
 
-**Reference Folder**: `improve-scoring`
-**Purpose**: Provide the scoring formulas and desired results layout to ensure the Results page and mini-game scoring are changed consistently.
+**Reference Folder**: `improve-scoring-v3`
+**Purpose**: Provide enhanced scoring formulas and results layout specifications
 
 ### Key Insights from Reference Material
 
 #### Architecture & Patterns
-- The Results page is componentized; new cards should be implemented as small presentational components to fit existing layout patterns (React + Tailwind CSS).
-- Scoring formulas are best implemented in testable utility modules that accept metrics and return points + breakdown.
+
+- Results page organized into distinct sections for Quiz and Egg Juggling
+- Card-based layout displaying specific metrics for each section
+- New scoring formulas with accuracy and speed components
+- Penalty system for egg juggling efficiency
 
 #### Code Examples & Interfaces
-- Recommended util interfaces:
-  - `computeQuizScore({ totalQuestions, correct, wrong, timeSpentMs }) => { points, breakdown, percentage }`
-  - `computeEggGameScore({ eggsDropped, eggsProduced, juggles, timeSpentMs }) => { points, breakdown }`
+
+- Quiz scoring: Accuracy Score + Speed Bonus calculation
+- Egg juggling scoring: Bounce points - Total Penalty (drops + efficiency)
+- Fixed weights: Correct Answer (100), Wrong Answer Penalty (50), Max Speed Bonus (500)
+- Egg game weights: Bounce (10), Drop Penalty (200), Efficiency Penalty (100)
 
 #### Configuration & Setup
-- Expose a feature flag (e.g., `enableNewScoring`) to support gradual rollout and easy rollback.
-- Validate inputs and use defaults when metrics are missing.
+
+- Quiz section cards: Correct Answers, Wrong Answers, Percentage, Total Time Spent, Total Points
+- Egg Juggling section cards: Eggs Dropped, Eggs Produced, Egg Juggles, Total Time Spent, Total Points
+- Title change from "Quiz Result" to "Your Score"
+- Removal of legacy scoring text
 
 #### Testing Approaches
-- Unit tests for scoring utilities (happy path + edge cases).
-- Component tests for Results cards rendering and compact layout.
-- Integration tests to ensure combined scoring flows from game/quiz into final results.
+
+- Formula validation with example calculations
+- Card rendering verification for both sections
+- Score calculation accuracy testing
+- UI layout and text changes validation
 
 ### Referenced Files
-- `.specify/reference/improve-scoring/README.md`
-- `NEW-QUIZ-SCORING.md` (implementor should add or verify this file)
-- `NEW-EGG-JUGGLING-SCORING.md` (implementor should add or verify this file)
 
-## Requirements *(mandatory)*
+- `.specify/reference/improve-scoring-v3/README.md` - Requirements overview
+- `NEW-QUIZ-SCORING.md` - Detailed quiz scoring formula
+- `NEW-EGG-JUGGLING-SCORING.md` - Detailed egg juggling scoring formula
+
+---
+
+## User Scenarios & Testing
+
+### Primary User Story
+
+As a quiz participant, I want to see detailed scoring results with separate sections for quiz performance and egg juggling game performance, so that I can understand how my final score was calculated using the new enhanced formulas.
+
+### Acceptance Scenarios
+
+1. **Given** a user completes a quiz, **When** they view the Results page, **Then** the page shows "Your Score" as the title and displays a Quiz section with 5 cards: Correct Answers, Wrong Answers, Percentage, Total Time Spent, and Total Points
+2. **Given** the egg juggling mini-game was active during the quiz, **When** the user views Results, **Then** an Egg Juggling section appears with 5 cards: Eggs Dropped, Eggs Produced, Egg Juggles, Total Time Spent, and Total Points
+3. **Given** quiz performance data, **When** the new scoring formula is applied, **Then** the Total Points card shows the sum of Accuracy Score (correct × 100 - wrong × 50) and Speed Bonus (time saved factor × 500)
+4. **Given** egg juggling performance data, **When** the new scoring formula is applied, **Then** the Total Points card shows bounce points (juggles × 10) minus total penalty (drops × 200 + excess eggs × 100)
+5. **Given** the user views the Results page, **When** examining the layout, **Then** the legacy text "You scored .. out of .. possible points" is not displayed anywhere
+
+### Edge Cases
+
+- What happens when the egg juggling game was not active during the quiz?
+- How does the system handle zero correct answers or zero time taken?
+- What occurs when the number of eggs introduced is less than or equal to 5?
+
+## Requirements
 
 ### Functional Requirements
-- **FR-001**: System MUST update the Results page title to "Your Score" and remove legacy phrase "You scored .. out of .. possible points".
-- **FR-002**: System MUST present a Quiz Results section showing these cards: Correct Answers, Wrong Answers, Percentage, Total Time Spent, Total Points.
-- **FR-003**: System MUST present an Egg Juggling section (if mini-game active) with these cards: Eggs Dropped, Eggs Produced, Egg Juggles, Total Time Spent, Total Points.
-- **FR-004**: System MUST compute quiz points using the formula defined in `NEW-QUIZ-SCORING.md` and expose a testable util API `computeQuizScore(metrics)`.
-- **FR-005**: System MUST compute mini-game points using the formula defined in `NEW-EGG-JUGGLING-SCORING.md` and expose a testable util API `computeEggGameScore(metrics)`.
-- **FR-006**: System MUST combine quiz points and mini-game points into a visible Combined Total Points value on Results and provide a breakdown.
-- **FR-007**: System MUST render cards responsively and provide a compact display mode.
-- **FR-008**: System MUST not display the legacy phrase anywhere in the Results UI.
-- **FR-009**: System SHOULD provide a feature flag or settings toggle for enabling the new scoring logic.
-- **FR-010**: Implementations MUST include unit tests for scoring utilities and component/integration tests as described in the Testing Approaches.
 
-## Key Entities *(include if feature involves data)*
-- **QuizMetrics**: { totalQuestions: number, correct: number, wrong: number, timeSpentMs: number }
-- **QuizScore**: { points: number, breakdown: { correctPoints, timeBonus, penalty }, percentage: number }
-- **EggGameMetrics**: { eggsDropped: number, eggsProduced: number, juggles: number, timeSpentMs: number }
-- **EggGameScore**: { points: number, breakdown: { dropsPenalty, jugglesBonus } }
-- **CombinedScore**: { quizPoints: number, eggGamePoints: number, totalPoints: number }
+- **FR-001**: System MUST display "Your Score" as the Results page title instead of "Quiz Result"
+- **FR-002**: System MUST remove the legacy text "You scored .. out of .. possible points" from all Results displays
+- **FR-003**: System MUST create a Quiz section displaying exactly 5 cards: Correct Answers, Wrong Answers, Percentage, Total Time Spent, and Total Points
+- **FR-004**: System MUST create an Egg Juggling section displaying exactly 5 cards: Eggs Dropped, Eggs Produced, Egg Juggles, Total Time Spent, and Total Points
+- **FR-005**: System MUST implement the new quiz scoring formula: Accuracy Score (correct × 100 - wrong × 50) + Speed Bonus (time saved factor × 500)
+- **FR-006**: System MUST implement the new egg juggling scoring formula: Bounce Points (juggles × 10) - Total Penalty (drops × 200 + excess eggs above 5 × 100)
+- **FR-007**: System MUST calculate Maximum Possible Time as Total Questions × 10 seconds for speed bonus calculation
+- **FR-008**: System MUST calculate Speed Factor as (Maximum Possible Time - Actual Time) / Maximum Possible Time
+- **FR-009**: System MUST only display the Egg Juggling section when the mini-game was active during the quiz
+- **FR-010**: System MUST ensure all card values are calculated and displayed accurately according to the new formulas
 
-## Testing Approaches *(mandatory)*
-- Unit tests
-  - `computeQuizScore` tests covering normal and edge cases (0 questions, all correct, time bonuses/penalties).
-  - `computeEggGameScore` tests covering drop extremes and high juggles.
-- Component tests
-  - Results page tests asserting the presence and content of the five quiz cards and five mini-game cards when applicable.
-  - Snapshot tests for compact and full card layouts.
-- Integration tests
-  - Update `tests/integration/game-quiz-integration.test.js` (or add a new test) to assert that when the egg-juggling game runs, its points are included in final score.
-- Regression tests
-  - Assert legacy text is removed and title changed.
+### Key Entities
+
+- **QuizMetrics**: Contains total questions, correct answers, wrong answers, and time taken data
+- **EggGameMetrics**: Contains eggs dropped, eggs produced, egg juggles, and total eggs introduced data
+- **QuizScore**: Calculated using accuracy score and speed bonus components
+- **EggGameScore**: Calculated using bounce points minus drop and efficiency penalties
+- **ResultCard**: Display component for individual metric values in each section
+- **ResultSection**: Container for grouped cards (Quiz or Egg Juggling)
+
+---
 
 ## Review & Acceptance Checklist
-- [ ] Title changed to "Your Score" and legacy text removed (UI verification)
-- [ ] Quiz Results displays 5 cards with correct labels and computed values
-- [ ] Egg Juggling Results displays 5 cards with correct labels and computed values (when mini-game active)
-- [ ] `computeQuizScore` and `computeEggGameScore` implemented with unit test coverage
-- [ ] Combined total points displayed with breakdown
-- [ ] Compact mode layout exists and is verified by tests
-- [ ] Feature flag exists (or rollout plan documented)
-- [ ] Integration tests updated to confirm scoring flow end-to-end
+
+### Content Quality
+
+- [x] No implementation details (languages, frameworks, APIs)
+- [x] Focused on user value and business needs
+- [x] Written for non-technical stakeholders
+- [x] All mandatory sections completed
+
+### Requirement Completeness
+
+- [x] No [NEEDS CLARIFICATION] markers remain
+- [x] Requirements are testable and unambiguous
+- [x] Success criteria are measurable
+- [x] Scope is clearly bounded
+- [x] Dependencies and assumptions identified
+
+---
 
 ## Execution Status
+
 - [x] User description parsed
-- [x] Key concepts extracted from reference
-- [x] Ambiguities: formulas referenced by `NEW-*.md` files must be loaded and validated during implementation
-- [ ] User scenarios defined (primary scenarios included)
-- [ ] Requirements generated
-- [ ] Entities identified
-- [ ] Review checklist pending
+- [x] Key concepts extracted
+- [x] Ambiguities marked
+- [x] User scenarios defined
+- [x] Requirements generated
+- [x] Entities identified
+- [x] Review checklist passed

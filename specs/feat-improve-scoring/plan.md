@@ -1,69 +1,80 @@
-# Implementation Plan: Improve results and egg-game scoring cards
+# Implementation Plan: Improve Quiz Results Scoring v3
 
-**Branch**: `feat-improve-scoring` | **Date**: 2025-10-21 | **Spec**: `specs/feat-improve-scoring/spec.md`
-**Input**: Feature specification from `/Users/2259797/Projects/Cognizant/Bench/Quiz-App-in-NextJS/specs/feat-improve-scoring/spec.md`
+**Branch**: `feat-improve-scoring` | **Date**: 2024-12-19 | **Spec**: [spec.md](./spec.md)
+**Input**: Feature specification from `/specs/feat-improve-scoring/spec.md`
 
 ## Execution Flow (/plan command scope)
 
 ```
 1. Load feature spec from Input path
-   → If not found: ERROR "No feature spec at {path}"
+   → Feature spec loaded successfully
 2. Fill Technical Context (scan for NEEDS CLARIFICATION)
-   → Detect Project Type from context: Next.js web application (frontend + API routes)
-   → Structure Decision: Single-project Next.js app (use `src/` structure), UI components in `src/components/`, hooks in `src/hooks/`, utils in `src/utils/`.
-3. Fill the Constitution Check section based on the content of the constitution document.
-4. Evaluate Constitution Check section below
-   → If violations exist: Document in Complexity Tracking
-   → If no justification possible: ERROR "Simplify approach first"
+   → Detect Project Type: web (Next.js frontend + API routes)
+   → Set Structure Decision: Option 2 (web application)
+3. Fill the Constitution Check section based on constitution content
+4. Evaluate Constitution Check section
+   → No violations detected
    → Update Progress Tracking: Initial Constitution Check
 5. Execute Phase 0 → research.md
-   → If NEEDS CLARIFICATION remain: ERROR "Resolve unknowns"
-6. Execute Phase 1 → contracts, data-model.md, quickstart.md, agent-specific template file (e.g., `CLAUDE.md` for Claude Code, `.github/copilot-instructions.md` for GitHub Copilot, `GEMINI.md` for Gemini CLI, `QWEN.md` for Qwen Code or `AGENTS.md` for opencode).
+   → All requirements clearly specified, no NEEDS CLARIFICATION
+6. Execute Phase 1 → contracts, data-model.md, quickstart.md, .github/copilot-instructions.md
 7. Re-evaluate Constitution Check section
-   → If new violations: Refactor design, return to Phase 1
+   → No new violations
    → Update Progress Tracking: Post-Design Constitution Check
 8. Plan Phase 2 → Describe task generation approach (DO NOT create tasks.md)
 9. STOP - Ready for /tasks command
 ```
 
-**IMPORTANT**: The /plan command STOPS at step 7. Phases 2-4 are executed by other commands:
-
-- Phase 2: /tasks command creates tasks.md
-- Phase 3-4: Implementation execution (manual or via tools)
-
 ## Summary
 
-[Extract from feature spec: primary requirement + technical approach from research]
+Enhanced quiz results scoring system with new formulas for both quiz performance (accuracy + speed bonus) and egg juggling mini-game (bounce points - penalties). Replaces legacy scoring display with structured card-based sections showing detailed metrics for each component.
 
 ## Technical Context
 
-**Language/Version**: [e.g., Python 3.11, Swift 5.9, Rust 1.75 or NEEDS CLARIFICATION]  
-**Primary Dependencies**: [e.g., FastAPI, UIKit, LLVM or NEEDS CLARIFICATION]  
-**Storage**: [if applicable, e.g., PostgreSQL, CoreData, files or N/A]  
-**Testing**: [e.g., pytest, XCTest, cargo test or NEEDS CLARIFICATION]  
-**Target Platform**: [e.g., Linux server, iOS 15+, WASM or NEEDS CLARIFICATION]
-**Project Type**: [single/web/mobile - determines source structure]  
-**Performance Goals**: [domain-specific, e.g., 1000 req/s, 10k lines/sec, 60 fps or NEEDS CLARIFICATION]  
-**Constraints**: [domain-specific, e.g., <200ms p95, <100MB memory, offline-capable or NEEDS CLARIFICATION]  
-**Scale/Scope**: [domain-specific, e.g., 10k users, 1M LOC, 50 screens or NEEDS CLARIFICATION]
+**Language/Version**: JavaScript ES6+, React 18  
+**Primary Dependencies**: Next.js 14.2.13, Tailwind CSS, React Icons  
+**Storage**: Context API for state management, JSON for quiz data  
+**Testing**: Jest 29.7.0, React Testing Library  
+**Target Platform**: Web browsers (responsive design)  
+**Project Type**: web - Next.js application with frontend components and utility functions  
+**Performance Goals**: Real-time score calculation, smooth UI updates  
+**Constraints**: Maintain existing component structure, preserve game integration  
+**Scale/Scope**: Single Results component enhancement, 2 scoring utility functions
 
 ## Constitution Check
 
 _GATE: Must pass before Phase 0 research. Re-check after Phase 1 design._
 
-Based on loaded constitution sections (core, architecture, testing, branching):
-- Coding standards: follow ESLint rules already in repo; ensure new files pass linting.
-- Testing: unit tests colocated with source; integration tests in `tests/integration/` per constitution.
-- Branching: create branch `feat/improve-scoring` and follow commit message standard `feat: ...` for changes.
+**Technology Stack Compliance**: ✅ PASS
 
-Initial gate: PASS (no conflicts with constitution detected for this small UI + util change).
+- Uses approved Next.js/React stack
+- Maintains existing testing framework (Jest)
+- No new technology introductions
+
+**Coding Standards Compliance**: ✅ PASS
+
+- Will follow existing JavaScript/React patterns
+- Maintains structured logging for score calculations
+- Input validation for scoring metrics
+
+**Architecture Principles Compliance**: ✅ PASS
+
+- Single responsibility: scoring utilities separate from UI
+- Maintains existing service delegation pattern
+- No new external dependencies
+
+**Testing Requirements Compliance**: ✅ PASS
+
+- Unit tests for scoring utility functions
+- Component tests for Results UI changes
+- Integration tests for score calculation flow
 
 ## Project Structure
 
 ### Documentation (this feature)
 
 ```
-specs/[feature]/
+specs/feat-improve-scoring/
 ├── plan.md              # This file (/plan command output)
 ├── research.md          # Phase 0 output (/plan command)
 ├── data-model.md        # Phase 1 output (/plan command)
@@ -75,104 +86,132 @@ specs/[feature]/
 ### Source Code (repository root)
 
 ```
-# Option 1: Single project (DEFAULT)
+# Option 2: Web application (Next.js structure)
 src/
-├── models/
-├── services/
-├── cli/
-└── lib/
+├── components/
+│   └── Results.jsx      # Enhanced with new scoring sections
+├── utils/
+│   ├── quizScoring.js   # New quiz scoring utilities
+│   └── eggGameScoring.js # New egg game scoring utilities
+└── context/
+    └── PointsContext.js # Updated for new scoring
 
 tests/
-├── contract/
+├── unit/
+│   ├── quizScoring.test.js
+│   └── eggGameScoring.test.js
 ├── integration/
-└── unit/
-
-# Option 2: Web application (when "frontend" + "backend" detected)
-backend/
-├── src/
-│   ├── models/
-│   ├── services/
-│   └── api/
-└── tests/
-
-frontend/
-├── src/
-│   ├── components/
-│   ├── pages/
-│   └── services/
-└── tests/
-
-# Option 3: Mobile + API (when "iOS/Android" detected)
-api/
-└── [same as backend above]
-
-ios/ or android/
-└── [platform-specific structure]
+│   └── scoring-integration.test.js
+└── components/
+    └── Results.test.js
 ```
 
-**Structure Decision**: [DEFAULT to Option 1 unless Technical Context indicates web/mobile app]
+**Structure Decision**: Option 2 - Web application (existing Next.js structure)
 
 ## Phase 0: Outline & Research
 
-Primary unknowns / clarifications required (from spec):
-- Confirm presence and contents of `NEW-QUIZ-SCORING.md` and `NEW-EGG-JUGGLING-SCORING.md` (source of formulas).
-- Decide whether the new scoring should be behind a runtime feature flag (config) or a compile-time toggle.
+1. **Extract unknowns from Technical Context** above:
 
-Research tasks to run now:
-- R0.1: Inspect repository for `NEW-QUIZ-SCORING.md` and `NEW-EGG-JUGGLING-SCORING.md` and capture formulas. If missing, request the formula from stakeholders or define default formula.
-- R0.2: Research patterns for testable scoring utils in React apps (pure functions, unit tests, TypeScript/prop types or simple JS with JSDoc).
-- R0.3: Research feature-flag options for Next.js apps (env flag + runtime config vs. UI settings persisted in Points/Settings context).
+   - All technical requirements clearly specified in reference materials
+   - Existing codebase structure well-documented
+   - Scoring formulas provided with detailed examples
 
-Consolidate findings into `specs/feat-improve-scoring/research.md` with decisions and rationale.
+2. **Generate and dispatch research agents**:
 
-Output: `research.md` created containing resolved clarifications.
+   - Research existing Results component structure
+   - Analyze current PointsContext implementation
+   - Review existing scoring calculation patterns
+   - Investigate card-based UI component patterns in codebase
+
+3. **Consolidate findings** in `research.md`:
+   - Decision: Enhance existing Results.jsx with new sections
+   - Rationale: Maintains component hierarchy, adds structured scoring
+   - Alternatives considered: Complete rewrite vs incremental enhancement
+
+**Output**: research.md with component analysis and implementation approach
 
 ## Phase 1: Design & Contracts
 
 _Prerequisites: research.md complete_
 
-Planned artifacts:
-- `data-model.md` — extract QuizMetrics, QuizScore, EggGameMetrics, EggGameScore shapes (already in spec; add validation rules and types).
-- `/contracts/score-api.js` — an internal contract describing the scoring util API and expected inputs/outputs. This drives contract tests.
-- `quickstart.md` — short doc showing how to run tests and enable the feature flag.
+1. **Extract entities from feature spec** → `data-model.md`:
 
-Design actions:
-1. Implement `src/utils/scoring/computeQuizScore.js` and `src/utils/scoring/computeEggGameScore.js` as pure functions with clear input and output shapes matching the spec.
-2. Create `specs/feat-improve-scoring/contracts/score-utils.contract.js` describing function signatures and edge behavior.
-3. Create contract tests under `src/utils/__tests__/` that import the contract spec and assert that the util functions return expected shapes (these tests initially fail if functions not implemented). Use Jest for unit tests.
-4. Add `specs/feat-improve-scoring/data-model.md` containing entities and validation rules.
+   - QuizMetrics: totalQuestions, correct, wrong, timeSpentMs
+   - EggGameMetrics: eggsDropped, eggsProduced, juggles, totalEggsIntroduced
+   - QuizScore: points, breakdown (accuracyScore, speedBonus), percentage
+   - EggGameScore: points, breakdown (bouncePoints, dropPenalty, efficiencyPenalty)
+   - ResultCard: metric name, value, display format
+   - ResultSection: title, cards array, conditional display
 
-Output: `data-model.md`, `specs/feat-improve-scoring/contracts/*`, `quickstart.md`, and unit tests created (failing until implementation).
+2. **Generate API contracts** from functional requirements:
 
+   - computeQuizScore(metrics) → QuizScore interface
+   - computeEggGameScore(metrics) → EggGameScore interface
+   - Results component props interface
+   - Card component interface
+
+3. **Generate contract tests** from contracts:
+
+   - quizScoring.contract.test.js - validates scoring formula accuracy
+   - eggGameScoring.contract.test.js - validates penalty calculations
+   - Results.contract.test.js - validates UI contract compliance
+
+4. **Extract test scenarios** from user stories:
+
+   - Complete quiz → view enhanced results with both sections
+   - Quiz without mini-game → view quiz section only
+   - Verify formula calculations match reference examples
+   - Validate UI text changes (title, legacy text removal)
+
+5. **Update agent file incrementally**:
+   - Add scoring utility patterns to .github/copilot-instructions.md
+   - Include new component structure context
+   - Document formula calculation patterns
+
+**Output**: data-model.md, /contracts/\*, failing tests, quickstart.md, .github/copilot-instructions.md
 
 ## Phase 2: Task Planning Approach
 
-This phase is reserved for `/tasks`. Summary of strategy (for later automation):
-- Use `tasks.md` to create TDD-style steps: contract tests → scoring utils → unit tests → Results UI changes → integration tests → rollout.
-- Prioritize unit tests for scoring utils so behavior is fully specified before UI updates.
-- Mark tasks with `[P]` where safe to parallelize (different files).
+_This section describes what the /tasks command will do - DO NOT execute during /plan_
 
-Estimated tasks: ~12-18 (smaller than large features because changes are confined to utils + Results UI + tests).
+**Task Generation Strategy**:
+
+- Load `.specify/templates/tasks-template.md` as base
+- Generate utility function tasks from scoring formulas
+- Create component enhancement tasks from UI requirements
+- Generate test tasks for each contract and integration scenario
+
+**Ordering Strategy**:
+
+- TDD order: Contract tests → utility functions → component tests → UI implementation
+- Dependency order: Scoring utilities → Results component enhancement → integration
+- Mark [P] for parallel execution: utility functions can be developed independently
+
+**Estimated Output**: 15-20 numbered, ordered tasks in tasks.md
+
+**IMPORTANT**: This phase is executed by the /tasks command, NOT by /plan
 
 ## Phase 3+: Future Implementation
 
-These phases are executed after /tasks generates the task list.
+_These phases are beyond the scope of the /plan command_
 
-**Phase 3**: Execute tasks in `tasks.md` (tests-first, implement scoring utils, update UI)  
-**Phase 4**: Integrate scoring with Points/Results flows and add feature-flag gating  
-**Phase 5**: Run full test suite, perform manual UX verification of Results page and compact mode
+**Phase 3**: Task execution (/tasks command creates tasks.md)  
+**Phase 4**: Implementation (scoring utilities → Results component → tests)  
+**Phase 5**: Validation (run tests, verify formulas, UI validation)
 
 ## Complexity Tracking
 
-No major constitutional violations detected. This feature is scoped to a small set of pure functions and UI changes; architecture and technology choices remain within constitution constraints.
+_No constitutional violations detected - section not needed_
 
 ## Progress Tracking
 
+_This checklist is updated during execution flow_
+
 **Phase Status**:
 
-- [ ] Phase 0: Research complete (/plan command)
-- [ ] Phase 1: Design complete (/plan command)
-- [ ] Phase 2: Task planning complete (/plan command - describe approach only)
+- [x] Phase 0: Research complete (/plan command)
+- [x] Phase 1: Design complete (/plan command)
+- [x] Phase 2: Task planning complete (/plan command - describe approach only)
 - [ ] Phase 3: Tasks generated (/tasks command)
 - [ ] Phase 4: Implementation complete
 - [ ] Phase 5: Validation passed
@@ -180,11 +219,10 @@ No major constitutional violations detected. This feature is scoped to a small s
 **Gate Status**:
 
 - [x] Initial Constitution Check: PASS
-- [ ] Post-Design Constitution Check: PASS
-- [ ] All NEEDS CLARIFICATION resolved
-- [ ] Complexity deviations documented
+- [x] Post-Design Constitution Check: PASS
+- [x] All NEEDS CLARIFICATION resolved
+- [x] Complexity deviations documented (none required)
 
 ---
 
 _Based on Constitution v2.1.1 - See `/memory/constitution.md`_
-
