@@ -4,6 +4,7 @@
 **Prerequisites**: plan.md (required), research.md, data-model.md, contracts/
 
 ## Execution Flow (main)
+
 ```
 1. Load plan.md from feature directory
    → Tech stack: Next.js 14, React 18, HTML5 Canvas, Tailwind CSS
@@ -30,10 +31,12 @@
 ```
 
 ## Format: `[ID] [P?] Description`
+
 - **[P]**: Can run in parallel (different files, no dependencies)
 - Include exact file paths in descriptions
 
 ## Path Conventions
+
 - **Single project**: `src/` at repository root (Next.js structure)
 - Components in `src/components/`
 - Hooks in `src/hooks/`
@@ -41,23 +44,27 @@
 - Tests colocated with source files
 
 ## Phase 3.1: Setup
+
 - [x] T001 Create game component directory structure in src/components/
 - [x] T002 Create game hooks directory structure in src/hooks/
 - [x] T003 Create game utilities directory structure in src/utils/
 - [x] T004 [P] Configure ESLint rules for Canvas and game development
 
 ## Phase 3.2: Tests First (TDD) ⚠️ MUST COMPLETE BEFORE 3.3
+
 **CRITICAL: These tests MUST be written and MUST FAIL before ANY implementation**
-- [x] T005 [P] Contract test EggJugglingGame component in src/components/__tests__/EggJugglingGame.test.js
-- [x] T006 [P] Contract test GameCanvas component in src/components/__tests__/GameCanvas.test.js
-- [x] T007 [P] Contract test GameSettings component in src/components/__tests__/GameSettings.test.js
-- [x] T008 [P] Contract test useGameState hook in src/hooks/__tests__/useGameState.test.js
-- [x] T009 [P] Contract test useGamePhysics hook in src/hooks/__tests__/useGamePhysics.test.js
-- [x] T010 [P] Physics engine tests in src/utils/__tests__/physics.test.js
-- [x] T011 [P] Game engine tests in src/utils/__tests__/gameEngine.test.js
+
+- [x] T005 [P] Contract test EggJugglingGame component in src/components/**tests**/EggJugglingGame.test.js
+- [x] T006 [P] Contract test GameCanvas component in src/components/**tests**/GameCanvas.test.js
+- [x] T007 [P] Contract test GameSettings component in src/components/**tests**/GameSettings.test.js
+- [x] T008 [P] Contract test useGameState hook in src/hooks/**tests**/useGameState.test.js
+- [x] T009 [P] Contract test useGamePhysics hook in src/hooks/**tests**/useGamePhysics.test.js
+- [x] T010 [P] Physics engine tests in src/utils/**tests**/physics.test.js
+- [x] T011 [P] Game engine tests in src/utils/**tests**/gameEngine.test.js
 - [x] T012 [P] Integration test game-quiz integration in tests/integration/game-quiz-integration.test.js
 
 ## Phase 3.3: Core Implementation (ONLY after tests are failing)
+
 - [x] T013 [P] Physics utilities in src/utils/physics.js
 - [x] T014 [P] Game engine core in src/utils/gameEngine.js
 - [x] T015 [P] useGamePhysics hook in src/hooks/useGamePhysics.js
@@ -68,6 +75,7 @@
 - [x] T020 Game context provider in src/context/GameContext.js
 
 ## Phase 3.4: Integration
+
 - [x] T021 Integrate game component into quiz page src/app/quiz/[subject]/page.jsx
 - [x] T022 Update PointsContext to handle mini-game scoring in src/context/PointsContext.js
 - [x] T023 Add game settings to existing settings UI
@@ -75,15 +83,17 @@
 - [x] T025 Add responsive design for mobile devices
 
 ## Phase 3.5: Polish
+
 - [x] T026 [P] Performance optimization for Canvas rendering
-- [ ] T027 [P] Add game sound effects (optional)
-- [x] T028 [P] Unit tests for edge cases in src/components/__tests__/
+- [x] T027 [P] Add game sound effects (optional)
+- [x] T028 [P] Unit tests for edge cases in src/components/**tests**/
 - [x] T029 [P] Performance tests in tests/performance/game-performance.test.js
 - [x] T030 [P] Update README.md with game features
 - [x] T031 Code cleanup and remove console.logs
 - [x] T032 Run quickstart.md validation tests
 
 ## Dependencies
+
 - Tests (T005-T012) before implementation (T013-T025)
 - T013 (physics) blocks T015 (useGamePhysics)
 - T015 (useGamePhysics) blocks T016 (useGameState)
@@ -92,6 +102,7 @@
 - Implementation before polish (T026-T032)
 
 ## Parallel Example
+
 ```
 # Launch T005-T011 together (contract tests):
 Task: "Contract test EggJugglingGame component in src/components/__tests__/EggJugglingGame.test.js"
@@ -110,6 +121,7 @@ Task: "GameSettings component in src/components/GameSettings.jsx"
 ```
 
 ## Notes
+
 - [P] tasks = different files, no dependencies
 - Verify tests fail before implementing
 - Commit after each task
@@ -117,19 +129,19 @@ Task: "GameSettings component in src/components/GameSettings.jsx"
 - Mobile touch events need special handling
 
 ## Task Generation Rules
-*Applied during main() execution*
+
+_Applied during main() execution_
 
 1. **From Contracts**:
    - game-components.js → component contract tests [P]
    - game-api.js → engine and physics tests [P]
-   
 2. **From Data Model**:
    - Egg entity → physics utilities [P]
    - GameState → useGameState hook
    - GameSettings → GameSettings component [P]
    - GameScore → scoring integration
-   
 3. **From User Stories**:
+
    - Quiz integration → integration test [P]
    - Settings control → settings UI tasks
    - Score combination → Results component update
@@ -140,7 +152,8 @@ Task: "GameSettings component in src/components/GameSettings.jsx"
    - Components before quiz integration
 
 ## Validation Checklist
-*GATE: Checked by main() before returning*
+
+_GATE: Checked by main() before returning_
 
 - [x] All contracts have corresponding tests
 - [x] All entities have implementation tasks
