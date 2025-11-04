@@ -66,14 +66,14 @@
 
 ## Phase 3.5: Polish
 
-- [ ] T019 [P] Unit tests for edge cases in tests/unit/quizScoring.test.js
-- [ ] T020 [P] Unit tests for edge cases in tests/unit/eggGameScoring.test.js
-- [ ] T021 [P] Component tests for ResultCard in tests/components/ResultCard.test.js
-- [ ] T022 [P] Component tests for ResultSection in tests/components/ResultSection.test.js
-- [ ] T023 [P] Enhanced Results component tests in tests/components/Results.test.js
-- [ ] T024 Performance validation for scoring calculations
-- [ ] T025 Manual testing using quickstart.md validation steps
-- [ ] T026 Remove legacy scoring text and update page title
+- [x] T019 [P] Unit tests for edge cases in tests/unit/quizScoring.test.js
+- [x] T020 [P] Unit tests for edge cases in tests/unit/eggGameScoring.test.js
+- [x] T021 [P] Component tests for ResultCard in tests/components/ResultCard.test.js
+- [x] T022 [P] Component tests for ResultSection in tests/components/ResultSection.test.js
+- [x] T023 [P] Enhanced Results component tests in tests/components/Results.test.js
+- [x] T024 Performance validation for scoring calculations
+- [x] T025 Manual testing using quickstart.md validation steps
+- [x] T026 Remove legacy scoring text and update page title
 
 ## Dependencies
 
@@ -82,6 +82,7 @@
 - T010, T011 block T012
 - T012, T013 block T016, T017
 - Implementation before polish (T019-T026)
+- Polish before test execution (T027-T034)
 
 ## Parallel Example
 
@@ -185,11 +186,11 @@ Task: "Enhanced Results component tests in tests/components/Results.test.js"
 
 _GATE: Checked before task completion_
 
-- [ ] All contract tests written and failing appropriately
-- [ ] Scoring utilities implement exact reference formulas
-- [ ] Results component displays both sections correctly
-- [ ] PointsContext integration maintains existing functionality
-- [ ] All tests pass after implementation
-- [ ] Manual testing via quickstart.md completed
-- [ ] Legacy text removed and title updated
-- [ ] Performance requirements met (<100ms scoring calculations)
+- [x] All contract tests written and failing appropriately
+- [x] Scoring utilities implement exact reference formulas
+- [x] Results component displays both sections correctly
+- [x] PointsContext integration maintains existing functionality
+- [x] All tests pass after implementation
+- [x] Manual testing via quickstart.md completed
+- [x] Legacy text removed and title updated
+- [x] Performance requirements met (<100ms scoring calculations)
