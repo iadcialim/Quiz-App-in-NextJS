@@ -22,6 +22,16 @@ const Results = ({
   miniGameScore = 0,
 }) => {
   const { quizScore, eggGameScore, eggGameMetrics, eggGameActive } = useContext(PointsContext);
+  
+  // Debug: Log egg game data
+  console.log('Results - eggGameActive:', eggGameActive);
+  console.log('Results - eggGameMetrics:', eggGameMetrics);
+  console.log('Results - eggGameScore:', eggGameScore);
+  console.log('Results - miniGameScore:', miniGameScore);
+  
+  // Check if egg game section should be visible
+  const shouldShowEggGame = eggGameActive || miniGameScore !== 0 || (eggGameMetrics && (eggGameMetrics.juggles > 0 || eggGameMetrics.eggsDropped > 0));
+  console.log('Results - shouldShowEggGame:', shouldShowEggGame);
   // Set the state for confetti
   const [showConfetti, setShowConfetti] = useState(true);
   const [showSubmissionForm, setShowSubmissionForm] = useState(true);
@@ -71,13 +81,7 @@ const Results = ({
                 format: "percentage"
               },
               {
-                title: "Total Time Spent",
-                value: Math.round(timeSpent),
-                icon: <FaClock />,
-                format: "time"
-              },
-              {
-                title: "Total Points",
+                title: "Quiz Score",
                 value: quizScore?.points || score,
                 icon: <FaTrophy />,
                 format: "number"
@@ -87,8 +91,14 @@ const Results = ({
           
           <ResultSection
             title="Egg Juggling"
-            visible={eggGameActive || miniGameScore !== 0}
+            visible={eggGameActive || miniGameScore !== 0 || (eggGameMetrics && (eggGameMetrics.juggles > 0 || eggGameMetrics.eggsDropped > 0))}
             cards={[
+              {
+                title: "Eggs Juggled",
+                value: eggGameMetrics?.juggles || 0,
+                icon: <FaCheckCircle />,
+                format: "number"
+              },
               {
                 title: "Eggs Dropped",
                 value: eggGameMetrics?.eggsDropped || 0,
@@ -102,9 +112,21 @@ const Results = ({
                 format: "number"
               },
               {
-                title: "Egg Juggles",
-                value: eggGameMetrics?.juggles || 0,
-                icon: <FaCheckCircle />,
+                title: "Game Score",
+                value: eggGameScore?.points || miniGameScore,
+                icon: <FaTrophy />,
+                format: "number"
+              }
+            ]}
+          />
+          
+          <ResultSection
+            title="Points"
+            cards={[
+              {
+                title: "Total Points",
+                value: (quizScore?.points || 0) + (eggGameScore?.points || 0),
+                icon: <FaTrophy />,
                 format: "number"
               },
               {
@@ -112,12 +134,6 @@ const Results = ({
                 value: Math.round(timeSpent),
                 icon: <FaClock />,
                 format: "time"
-              },
-              {
-                title: "Total Points",
-                value: eggGameScore?.points || miniGameScore,
-                icon: <FaTrophy />,
-                format: "number"
               }
             ]}
           />

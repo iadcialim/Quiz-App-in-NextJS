@@ -36,12 +36,12 @@ try {
     totalEggsIntroduced: 6
   });
   
-  console.log('Expected: 1700 points');
+  console.log('Expected: 19980 points');
   console.log('Actual:', eggResult.points);
-  console.log('Bounce Points:', eggResult.breakdown.bouncePoints, '(expected: 2000)');
-  console.log('Drop Penalty:', eggResult.breakdown.dropPenalty, '(expected: 200)');
-  console.log('Efficiency Penalty:', eggResult.breakdown.efficiencyPenalty, '(expected: 100)');
-  console.log('Status:', eggResult.points === 1700 ? 'PASS ✅' : 'FAIL ❌');
+  console.log('Bounce Points:', eggResult.breakdown.bouncePoints, '(expected: 20000)');
+  console.log('Drop Penalty:', eggResult.breakdown.dropPenalty, '(expected: 10)');
+  console.log('Efficiency Penalty:', eggResult.breakdown.efficiencyPenalty, '(expected: 10)');
+  console.log('Status:', eggResult.points === 19980 ? 'PASS ✅' : 'FAIL ❌');
 } catch (error) {
   console.log('ERROR:', error.message);
   console.log('Status: FAIL ❌');

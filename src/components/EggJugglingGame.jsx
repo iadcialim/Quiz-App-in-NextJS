@@ -58,12 +58,21 @@ export default function EggJugglingGame({
     }
     
     // Update context with detailed egg game metrics
+    // The score represents successful bounces, droppedEggs represents failures
+    const juggles = Math.max(0, gameState.score); // Score = successful bounces
+    const eggsDropped = gameState.droppedEggs || 0;
+    const eggsProduced = juggles + eggsDropped; // Total eggs that appeared
+    
     const eggGameMetrics = {
-      eggsDropped: gameState.droppedEggs || 0,
-      eggsProduced: (gameState.totalEggsSpawned || 0),
-      juggles: (gameState.successfulBounces || 0),
-      totalEggsIntroduced: (gameState.totalEggsIntroduced || gameSettings.eggQuantity)
+      eggsDropped: eggsDropped,
+      eggsProduced: eggsProduced,
+      juggles: juggles,
+      totalEggsIntroduced: gameSettings.eggQuantity
     };
+    
+    console.log('EggJugglingGame - gameState.score:', gameState.score);
+    console.log('EggJugglingGame - gameState.droppedEggs:', gameState.droppedEggs);
+    console.log('EggJugglingGame - calculated metrics:', eggGameMetrics);
     updateEggGameMetrics(eggGameMetrics);
   }, [gameState.score, gameState.droppedEggs, gameState.totalEggsSpawned, gameState.successfulBounces, gameSettings.eggQuantity, onScoreUpdate, updateEggGameMetrics]);
 

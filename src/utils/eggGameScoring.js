@@ -28,15 +28,15 @@ function computeEggGameScore(metrics) {
     throw new Error('Dropped eggs cannot exceed produced eggs');
   }
 
-  // Calculate bounce points: juggles × 10
-  const bouncePoints = juggles * 10;
+  // Calculate bounce points: juggles × 100
+  const bouncePoints = juggles * 100;
 
-  // Calculate drop penalty: eggsDropped × 200
-  const dropPenalty = eggsDropped * 200;
+  // Calculate drop penalty: eggsDropped × 10
+  const dropPenalty = eggsDropped * 10;
 
-  // Calculate efficiency penalty: max(0, totalEggsIntroduced - 5) × 100
+  // Calculate efficiency penalty: max(0, totalEggsIntroduced - 5) × 10
   const excessEggs = Math.max(0, totalEggsIntroduced - 5);
-  const efficiencyPenalty = excessEggs * 100;
+  const efficiencyPenalty = excessEggs * 10;
 
   // Calculate final points
   const points = bouncePoints - dropPenalty - efficiencyPenalty;

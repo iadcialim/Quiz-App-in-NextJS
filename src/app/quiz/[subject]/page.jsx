@@ -109,7 +109,10 @@ const Quiz = ({ params }) => {
             <div className="flex-1 min-h-[calc(100vh-200px)]">
               <EggJugglingGame 
                 isQuizActive={!showResults}
-                onScoreUpdate={(score) => updateEggGameMetrics({ points: score })}
+                onScoreUpdate={(score) => {
+                  // The EggJugglingGame component handles updateEggGameMetrics internally
+                  // This callback is just for compatibility
+                }}
                 width={240}
                 height={700}
                 className="w-full h-full"
