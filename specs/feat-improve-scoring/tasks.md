@@ -42,10 +42,10 @@
 
 **CRITICAL: These tests MUST be written and MUST FAIL before ANY implementation**
 
-- [ ] T004 [P] Contract test for computeQuizScore in specs/feat-improve-scoring/contracts/scoring-utilities.contract.js
-- [ ] T005 [P] Contract test for computeEggGameScore in specs/feat-improve-scoring/contracts/scoring-utilities.contract.js
-- [ ] T006 [P] Contract test for Results component UI in specs/feat-improve-scoring/contracts/results-component.contract.js
-- [ ] T007 [P] Integration test for quiz completion flow in tests/integration/scoring-integration.test.js
+- [x] T004 [P] Contract test for computeQuizScore in specs/feat-improve-scoring/contracts/scoring-utilities.contract.js
+- [x] T005 [P] Contract test for computeEggGameScore in specs/feat-improve-scoring/contracts/scoring-utilities.contract.js
+- [x] T006 [P] Contract test for Results component UI in specs/feat-improve-scoring/contracts/results-component.contract.js
+- [x] T007 [P] Integration test for quiz completion flow in tests/integration/scoring-integration.test.js
 
 ## Phase 3.3: Core Implementation (ONLY after tests are failing)
 
