@@ -1,16 +1,16 @@
 <!--
 Sync Impact Report:
-Version change: 1.0.0 → 1.1.0
-Modified principles: Updated tech stack specifics for Quiz App
-Added sections: Next.js App Router patterns, Tailwind CSS standards
-Removed sections: Generic database guidelines (replaced with JSON data patterns)
-Templates requiring updates: ✅ constitution updated for Quiz App specifics
+Version change: 1.2.0 → 1.3.0
+Modified principles: Added AI agent test execution requirements
+Added sections: AI Agent Test Execution Requirements, AI Agent Execution Protocol
+Removed sections: None
+Templates requiring updates: ✅ constitution updated with AI testing standards
 Follow-up TODOs: None
 -->
 
 # Quiz App Development Constitution
 
-**Version**: 1.1.0  
+**Version**: 1.3.0  
 **Ratification Date**: 2024-12-19  
 **Last Amended**: 2024-12-19
 
@@ -55,7 +55,7 @@ Follow-up TODOs: None
 | Language       | JavaScript ES6+ with Next.js 14 App Router                | Mandatory   | ESLint configuration |
 | Type Safety    | PropTypes for components, JSDoc for functions             | Mandatory   | Runtime validation   |
 | Async Patterns | async/await for data fetching, useEffect for side effects | Mandatory   | Code review          |
-| Modularity     | Single responsibility components, custom hooks            | Mandatory   | Architecture review  |
+| Modularity     | Single responsibility components, custom hooks, dual exports | Mandatory   | Architecture review  |
 | Error Handling | Error boundaries, try-catch, graceful fallbacks           | Mandatory   | Component testing    |
 | Logging        | Console logging with structured format                    | Mandatory   | Development tools    |
 | Secrets        | Environment variables via .env.local                      | Mandatory   | Git ignore rules     |
@@ -93,6 +93,24 @@ try {
 - **Styling**: Tailwind utility classes, responsive breakpoints, consistent spacing
 - **Data**: JSON validation, immutable state updates, proper error handling
 - **Performance**: Image optimization, lazy loading, minimal re-renders
+- **Module Exports**: CommonJS exports for Node.js/React compatibility
+- **Test Execution**: AI agents must execute and verify all tests before task completion
+
+### Module Export Pattern
+
+**Utility Functions**: Use CommonJS exports for Node.js test compatibility
+
+```javascript
+// Utility function implementation
+function myUtility() {
+  // implementation
+}
+
+// CommonJS export for Node.js test scripts and Next.js components
+module.exports = { myUtility };
+```
+
+**Benefits**: Enables both `require()` in Node.js tests and Next.js can import CommonJS modules
 
 ---
 
@@ -114,6 +132,17 @@ try {
 | Component Tests | Component directories | **tests** subdirectories | .test.jsx            | Test rendering, props, user interactions, accessibility with React Testing Library |
 | Integration     | Exclusive directory   | tests/integration        | .integration.test.js | Test quiz flow, timer functionality, score calculation, data loading               |
 | E2E Tests       | Dedicated directory   | tests/e2e                | .e2e.test.js         | Complete quiz workflows, subject selection, question navigation, results display   |
+| Validation      | Consolidated location | tests/                   | -validation.js       | AI agent executable validation scripts for contract, edge case, performance tests  |
+
+### AI Agent Test Execution Requirements
+
+| Requirement     | Standard                                    | Validation Method        | Enforcement |
+| --------------- | ------------------------------------------- | ------------------------ | ----------- |
+| Test Execution  | AI agents MUST run all tests before completion | Execute test suite via executeBash | Mandatory |
+| Result Verification | AI agents MUST verify pass/fail status | Parse test output for ✅/❌ indicators | Mandatory |
+| Failure Investigation | AI agents MUST resolve test failures | Re-run tests after fixes | Mandatory |
+| Performance Validation | AI agents MUST verify <100ms requirements | Execute performance tests | Mandatory |
+| Manual Verification | AI agents MUST perform manual testing for critical paths | Document verification steps | Mandatory |
 
 **Examples**: Source: src/components/QuestionTimer.jsx → Test: src/components/**tests**/QuestionTimer.test.jsx | Source: src/context/PointsContext.js → Test: src/context/**tests**/PointsContext.test.js
 
@@ -129,6 +158,17 @@ try {
 **Integration**: Test API endpoints, database connections, external services | Logging: Capture test logs, verify log structure | Mocking: Mock external APIs, preserve internal logic | Must: Real service interactions, logging, error scenarios | Must Not: Mock critical integrations, skip cleanup
 
 **Mocking**: Unit: Mock external dependencies only | Implementation: Jest mocks, MSW for API mocking | Practices: Consistent framework, mock external deps, verify interactions, realistic behavior
+
+**AI Agent Execution Protocol**:
+1. **Pre-Implementation**: Execute contract tests to verify they fail appropriately
+2. **Post-Implementation**: Execute complete test suite and verify 100% pass rate
+3. **Performance Validation**: Execute performance tests and verify <100ms thresholds
+4. **Manual Verification**: Test critical user flows and document results
+5. **Failure Resolution**: Investigate and fix any test failures before task completion
+
+**Node.js Testing**: Utility functions must support Node.js `require()` for test execution | Use CommonJS exports only | Test scripts should validate implementation without build tools
+
+**AI Agent Test Execution**: AI agents MUST execute all tests and verify results | Agents must run complete test suites before marking tasks complete | Test failures must be investigated and resolved | Manual verification required for critical functionality
 
 ---
 
