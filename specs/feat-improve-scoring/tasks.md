@@ -34,9 +34,9 @@
 
 ## Phase 3.1: Setup
 
-- [ ] T001 Verify ESLint configuration for new utility functions
-- [ ] T002 [P] Validate Jest test environment for contract tests
-- [ ] T003 [P] Create test data fixtures for scoring calculations
+- [x] T001 Verify ESLint configuration for new utility functions
+- [x] T002 [P] Validate Jest test environment for contract tests
+- [x] T003 [P] Create test data fixtures for scoring calculations
 
 ## Phase 3.2: Tests First (TDD) ⚠️ MUST COMPLETE BEFORE 3.3
 
