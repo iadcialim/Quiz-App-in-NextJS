@@ -3,7 +3,8 @@
  * These tests MUST FAIL until implementation is complete
  */
 
-import { computeQuizScore, computeEggGameScore } from '../../../src/utils/quizScoring';
+import { computeQuizScore } from '../../../src/utils/quizScoring';
+import { computeEggGameScore } from '../../../src/utils/eggGameScoring';
 import { quizFixtures, eggGameFixtures, invalidInputs } from '../../../tests/fixtures/scoringFixtures';
 
 describe('computeQuizScore Contract', () => {

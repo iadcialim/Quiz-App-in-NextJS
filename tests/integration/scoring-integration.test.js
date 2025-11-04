@@ -9,7 +9,10 @@ import Results from '../../src/components/Results';
 
 // Mock the scoring utilities that don't exist yet
 jest.mock('../../src/utils/quizScoring', () => ({
-  computeQuizScore: jest.fn(),
+  computeQuizScore: jest.fn()
+}));
+
+jest.mock('../../src/utils/eggGameScoring', () => ({
   computeEggGameScore: jest.fn()
 }));
 
@@ -19,8 +22,10 @@ describe('Quiz Completion Flow Integration', () => {
   let mockComputeEggGameScore;
 
   beforeEach(() => {
-    mockComputeQuizScore = require('../../src/utils/quizScoring').computeQuizScore;
-    mockComputeEggGameScore = require('../../src/utils/quizScoring').computeEggGameScore;
+    const { computeQuizScore } = require('../../src/utils/quizScoring');
+    const { computeEggGameScore } = require('../../src/utils/eggGameScoring');
+    mockComputeQuizScore = computeQuizScore;
+    mockComputeEggGameScore = computeEggGameScore;
     
     mockContextValue = {
       points: 0,

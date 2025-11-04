@@ -1,12 +1,14 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { FaTrophy, FaCheckCircle, FaTimesCircle, FaQuestionCircle, FaPercentage, FaClock, FaStopwatch, FaGamepad, FaSpinner } from "react-icons/fa";
 import Confetti from 'react-confetti';
 import { useWindowSize } from 'react-use';
 import ScoreSubmissionForm from './ScoreSubmissionForm';
 import Leaderboard from './Leaderboard';
 import ErrorBoundary from './ErrorBoundary';
+import ResultSection from './ResultSection';
+import { PointsContext } from '../context/PointsContext';
 
 const Results = ({
   score,
@@ -40,116 +42,84 @@ const Results = ({
       {showConfetti && <Confetti width={width} height={height} numberOfPieces={700} />}
 
       <h2 className="text-3xl font-bold mb-6 text-center text-blue-600">
-        Quiz Results
+        Your Score
       </h2>
       
       <div className="flex flex-col lg:flex-row gap-8 max-w-7xl mx-auto">
-        {/* Left Panel - Quiz Results */}
+        {/* Left Panel - Enhanced Results */}
         <div className="flex-1">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-        
-        {/* Total Points */}
-        <div className="p-5 bg-white shadow-md rounded-lg flex items-center justify-between hover:shadow-lg transition-shadow duration-300">
-          <div>
-            <p className="text-xl font-semibold">Total Points</p>
-            <p className="text-lg font-bold text-green-600">{score}</p>
-          </div>
-          <FaTrophy className="text-yellow-500 text-3xl" />
-        </div>
-
-        {/* Points Earned */}
-        <div className="p-5 bg-white shadow-md rounded-lg flex items-center justify-between hover:shadow-lg transition-shadow duration-300">
-          <div>
-            <p className="text-xl font-semibold">Points Earned</p>
-            <p className="text-lg font-bold text-green-600">{correctAnswers * 4}</p>
-          </div>
-          <FaTrophy className="text-yellow-500 text-3xl" />
-        </div>
-
-        {/* Correct Answers */}
-        <div className="p-5 bg-white shadow-md rounded-lg flex items-center justify-between hover:shadow-lg transition-shadow duration-300">
-          <div>
-            <p className="text-xl font-semibold">Correct Answers</p>
-            <p className="text-lg font-bold text-green-600">{correctAnswers}</p>
-          </div>
-          <FaCheckCircle className="text-green-500 text-3xl" />
-        </div>
-
-        {/* Wrong Answers */}
-        <div className="p-5 bg-white shadow-md rounded-lg flex items-center justify-between hover:shadow-lg transition-shadow duration-300">
-          <div>
-            <p className="text-xl font-semibold">Wrong Answers</p>
-            <p className="text-lg font-bold text-red-600">{wrongAnswers}</p>
-          </div>
-          <FaTimesCircle className="text-red-500 text-3xl" />
-        </div>
-
-        {/* Unattempted Questions */}
-        <div className="p-5 bg-white shadow-md rounded-lg flex items-center justify-between hover:shadow-lg transition-shadow duration-300">
-          <div>
-            <p className="text-xl font-semibold">Unattempted Questions</p>
-            <p className="text-lg font-bold text-yellow-600">{unattemptedQuestions}</p>
-          </div>
-          <FaQuestionCircle className="text-yellow-500 text-3xl" />
-        </div>
-
-        {/* Percentage */}
-        <div className="p-5 bg-white shadow-md rounded-lg flex items-center justify-between hover:shadow-lg transition-shadow duration-300">
-          <div>
-            <p className="text-xl font-semibold">Percentage</p>
-            <p className="text-lg font-bold text-blue-600">{percentage}%</p>
-          </div>
-          <FaPercentage className="text-blue-500 text-3xl" />
-        </div>
-
-        {/* Total Time Spent */}
-        <div className="p-5 bg-white shadow-md rounded-lg flex items-center justify-between hover:shadow-lg transition-shadow duration-300">
-          <div>
-            <p className="text-xl font-semibold">Total Time Spent</p>
-            <p className="text-lg font-bold text-purple-600">{timeSpent.toFixed(2)}s</p>
-          </div>
-          <FaClock className="text-purple-500 text-3xl" />
-        </div>
-
-        {/* Avg Time Per Question */}
-        <div className="p-5 bg-white shadow-md rounded-lg flex items-center justify-between hover:shadow-lg transition-shadow duration-300">
-          <div>
-            <p className="text-xl font-semibold">Avg Time/Question</p>
-            <p className="text-lg font-bold text-indigo-600">{averageTimePerQuestion}s</p>
-          </div>
-          <FaStopwatch className="text-indigo-500 text-3xl" />
-        </div>
-
-        {/* Mini-Game Score */}
-        <div className="p-5 bg-white shadow-md rounded-lg flex items-center justify-between hover:shadow-lg transition-shadow duration-300">
-          <div>
-            <p className="text-xl font-semibold">Mini-Game Score</p>
-            <p className="text-lg font-bold text-orange-600">{miniGameScore}</p>
-          </div>
-          <FaGamepad className="text-orange-500 text-3xl" />
-        </div>
-
-        {/* Bonus Multiplier */}
-        <div className="p-5 bg-white shadow-md rounded-lg flex items-center justify-between hover:shadow-lg transition-shadow duration-300">
-          <div>
-            <p className="text-xl font-semibold">Bonus Multiplier</p>
-            <p className="text-lg font-bold text-pink-600">{(1.0 + (Math.max(0, miniGameScore) * 0.1)).toFixed(1)}x</p>
-          </div>
-          <FaTrophy className="text-pink-500 text-3xl" />
-        </div>
-
-            {/* Final Score */}
-            <div className="p-5 bg-white shadow-md rounded-lg flex items-center justify-between col-span-1 md:col-span-3 text-center hover:shadow-lg transition-shadow duration-300">
-              <div className="w-full">
-                <p className="text-xl font-semibold mb-2">
-                  Quiz Score: {correctAnswers * 4} + Mini-Game: {miniGameScore} = Total: {score}
-                </p>
-                <p className="text-lg text-gray-600">
-                  You scored {score} out of {totalQuestions * 4 + Math.max(0, miniGameScore)} possible points!
-                </p>
-              </div>
-            </div>
-          </div>
+          <ResultSection
+            title="Quiz Results"
+            cards={[
+              {
+                title: "Correct Answers",
+                value: correctAnswers,
+                icon: <FaCheckCircle />,
+                format: "number"
+              },
+              {
+                title: "Wrong Answers",
+                value: wrongAnswers,
+                icon: <FaTimesCircle />,
+                format: "number"
+              },
+              {
+                title: "Percentage",
+                value: percentage,
+                icon: <FaPercentage />,
+                format: "percentage"
+              },
+              {
+                title: "Total Time Spent",
+                value: Math.round(timeSpent),
+                icon: <FaClock />,
+                format: "time"
+              },
+              {
+                title: "Total Points",
+                value: score,
+                icon: <FaTrophy />,
+                format: "number"
+              }
+            ]}
+          />
+          
+          <ResultSection
+            title="Egg Juggling"
+            visible={miniGameScore !== 0}
+            cards={[
+              {
+                title: "Eggs Dropped",
+                value: 0,
+                icon: <FaTimesCircle />,
+                format: "number"
+              },
+              {
+                title: "Eggs Produced",
+                value: 0,
+                icon: <FaGamepad />,
+                format: "number"
+              },
+              {
+                title: "Egg Juggles",
+                value: 0,
+                icon: <FaCheckCircle />,
+                format: "number"
+              },
+              {
+                title: "Total Time Spent",
+                value: Math.round(timeSpent),
+                icon: <FaClock />,
+                format: "time"
+              },
+              {
+                title: "Total Points",
+                value: miniGameScore,
+                icon: <FaTrophy />,
+                format: "number"
+              }
+            ]}
+          />
         </div>
         
         {/* Right Panel - Score Submission & Leaderboard */}

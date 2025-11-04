@@ -49,12 +49,12 @@
 
 ## Phase 3.3: Core Implementation (ONLY after tests are failing)
 
-- [ ] T008 [P] Create computeQuizScore utility function in src/utils/quizScoring.js
-- [ ] T009 [P] Create computeEggGameScore utility function in src/utils/eggGameScoring.js
-- [ ] T010 Create ResultCard component in src/components/ResultCard.jsx
-- [ ] T011 Create ResultSection component in src/components/ResultSection.jsx
-- [ ] T012 Enhance Results component with new scoring sections in src/components/Results.jsx
-- [ ] T013 Update PointsContext with new scoring integration in src/context/PointsContext.js
+- [x] T008 [P] Create computeQuizScore utility function in src/utils/quizScoring.js
+- [x] T009 [P] Create computeEggGameScore utility function in src/utils/eggGameScoring.js
+- [x] T010 Create ResultCard component in src/components/ResultCard.jsx
+- [x] T011 Create ResultSection component in src/components/ResultSection.jsx
+- [x] T012 Enhance Results component with new scoring sections in src/components/Results.jsx
+- [x] T013 Update PointsContext with new scoring integration in src/context/PointsContext.js
 
 ## Phase 3.4: Integration
 
