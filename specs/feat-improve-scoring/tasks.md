@@ -58,11 +58,11 @@
 
 ## Phase 3.4: Integration
 
-- [ ] T014 Wire quiz scoring calculation into PointsContext
-- [ ] T015 Wire egg game scoring calculation into PointsContext
-- [ ] T016 Update Results component to use enhanced PointsContext data
-- [ ] T017 Implement conditional rendering for Egg Juggling section
-- [ ] T018 Add input validation and error handling for scoring functions
+- [x] T014 Wire quiz scoring calculation into PointsContext
+- [x] T015 Wire egg game scoring calculation into PointsContext
+- [x] T016 Update Results component to use enhanced PointsContext data
+- [x] T017 Implement conditional rendering for Egg Juggling section
+- [x] T018 Add input validation and error handling for scoring functions
 
 ## Phase 3.5: Polish
 

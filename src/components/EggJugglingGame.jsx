@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
+import { usePoints } from '../context/PointsContext';
 import GameCanvas from './GameCanvas';
 import GameSettings from './GameSettings';
 import useGameState from '../hooks/useGameState';
@@ -48,12 +49,23 @@ export default function EggJugglingGame({
     updateSettings(newSettings);
   }, [updateSettings]);
 
-  // Update parent with score changes
+  const { updateEggGameMetrics } = usePoints();
+
+  // Update parent with score changes and context with detailed metrics
   useEffect(() => {
     if (onScoreUpdate) {
       onScoreUpdate(gameState.score);
     }
-  }, [gameState.score, onScoreUpdate]);
+    
+    // Update context with detailed egg game metrics
+    const eggGameMetrics = {
+      eggsDropped: gameState.droppedEggs || 0,
+      eggsProduced: (gameState.totalEggsSpawned || 0),
+      juggles: (gameState.successfulBounces || 0),
+      totalEggsIntroduced: (gameState.totalEggsIntroduced || gameSettings.eggQuantity)
+    };
+    updateEggGameMetrics(eggGameMetrics);
+  }, [gameState.score, gameState.droppedEggs, gameState.totalEggsSpawned, gameState.successfulBounces, gameSettings.eggQuantity, onScoreUpdate, updateEggGameMetrics]);
 
   // Start/stop game based on quiz state
   useEffect(() => {

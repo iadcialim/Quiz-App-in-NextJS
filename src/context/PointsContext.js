@@ -31,34 +31,71 @@ export const PointsProvider = ({ children }) => {
 
   const calculateQuizScore = (metrics) => {
     try {
+      if (!metrics) {
+        throw new Error('Quiz metrics are required');
+      }
       const score = computeQuizScore(metrics);
       setQuizScore(score);
       return score;
     } catch (error) {
-      console.error('Quiz scoring error:', error);
-      return null;
+      console.error('Quiz scoring error:', error.message);
+      // Set fallback score
+      const fallbackScore = {
+        points: 0,
+        breakdown: { accuracyScore: 0, speedBonus: 0, maxPossibleTime: 0, speedFactor: 0 },
+        percentage: 0
+      };
+      setQuizScore(fallbackScore);
+      return fallbackScore;
     }
   };
 
   const calculateEggGameScore = (metrics) => {
     try {
+      if (!metrics) {
+        throw new Error('Egg game metrics are required');
+      }
       const score = computeEggGameScore(metrics);
       setEggGameScore(score);
       return score;
     } catch (error) {
-      console.error('Egg game scoring error:', error);
-      return null;
+      console.error('Egg game scoring error:', error.message);
+      // Set fallback score
+      const fallbackScore = {
+        points: 0,
+        breakdown: { bouncePoints: 0, dropPenalty: 0, efficiencyPenalty: 0, excessEggs: 0 }
+      };
+      setEggGameScore(fallbackScore);
+      return fallbackScore;
     }
   };
 
   const updateQuizMetrics = (metrics) => {
-    setQuizMetrics(metrics);
-    calculateQuizScore(metrics);
+    try {
+      if (!metrics || typeof metrics !== 'object') {
+        throw new Error('Invalid quiz metrics provided');
+      }
+      setQuizMetrics(metrics);
+      calculateQuizScore(metrics);
+    } catch (error) {
+      console.error('Error updating quiz metrics:', error.message);
+    }
   };
 
   const updateEggGameMetrics = (metrics) => {
-    setEggGameMetrics(metrics);
-    calculateEggGameScore(metrics);
+    try {
+      if (!metrics || typeof metrics !== 'object') {
+        throw new Error('Invalid egg game metrics provided');
+      }
+      setEggGameMetrics(metrics);
+      calculateEggGameScore(metrics);
+    } catch (error) {
+      console.error('Error updating egg game metrics:', error.message);
+    }
+  };
+
+  const setEggGameActiveState = (active) => {
+    setEggGameActive(active);
   };
 
   return (
@@ -80,7 +117,8 @@ export const PointsProvider = ({ children }) => {
       calculateQuizScore,
       calculateEggGameScore,
       updateQuizMetrics,
-      updateEggGameMetrics
+      updateEggGameMetrics,
+      setEggGameActive: setEggGameActiveState
     }}>
       {children}
     </PointsContext.Provider>

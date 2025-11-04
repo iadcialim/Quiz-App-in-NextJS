@@ -21,6 +21,7 @@ const Results = ({
   averageTimePerQuestion,
   miniGameScore = 0,
 }) => {
+  const { quizScore, eggGameScore, eggGameMetrics, eggGameActive } = useContext(PointsContext);
   // Set the state for confetti
   const [showConfetti, setShowConfetti] = useState(true);
   const [showSubmissionForm, setShowSubmissionForm] = useState(true);
@@ -65,7 +66,7 @@ const Results = ({
               },
               {
                 title: "Percentage",
-                value: percentage,
+                value: quizScore?.percentage || percentage,
                 icon: <FaPercentage />,
                 format: "percentage"
               },
@@ -77,7 +78,7 @@ const Results = ({
               },
               {
                 title: "Total Points",
-                value: score,
+                value: quizScore?.points || score,
                 icon: <FaTrophy />,
                 format: "number"
               }
@@ -86,23 +87,23 @@ const Results = ({
           
           <ResultSection
             title="Egg Juggling"
-            visible={miniGameScore !== 0}
+            visible={eggGameActive || miniGameScore !== 0}
             cards={[
               {
                 title: "Eggs Dropped",
-                value: 0,
+                value: eggGameMetrics?.eggsDropped || 0,
                 icon: <FaTimesCircle />,
                 format: "number"
               },
               {
                 title: "Eggs Produced",
-                value: 0,
+                value: eggGameMetrics?.eggsProduced || 0,
                 icon: <FaGamepad />,
                 format: "number"
               },
               {
                 title: "Egg Juggles",
-                value: 0,
+                value: eggGameMetrics?.juggles || 0,
                 icon: <FaCheckCircle />,
                 format: "number"
               },
@@ -114,7 +115,7 @@ const Results = ({
               },
               {
                 title: "Total Points",
-                value: miniGameScore,
+                value: eggGameScore?.points || miniGameScore,
                 icon: <FaTrophy />,
                 format: "number"
               }

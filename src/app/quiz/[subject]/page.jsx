@@ -8,7 +8,14 @@ import EggJugglingGame from "@/components/EggJugglingGame";
 
 const Quiz = ({ params }) => {
   const { subject } = params;
-  const { points, setPoints } = usePoints();
+  const { points, setPoints, updateQuizMetrics, updateEggGameMetrics, setEggGameActive } = usePoints();
+  
+  // Set egg game active state when mini-game has score
+  useEffect(() => {
+    if (miniGameScore !== 0) {
+      setEggGameActive(true);
+    }
+  }, [miniGameScore, setEggGameActive]);
 
   const [questions, setQuestions] = useState([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -63,6 +70,20 @@ const Quiz = ({ params }) => {
       setIsAnswered(false);
       setTimePerQuestion(0); // Reset the time for the next question
     } else {
+      // Calculate final quiz metrics and update context
+      const quizMetrics = {
+        totalQuestions: questions.length,
+        correct: correctAnswers,
+        wrong: wrongAnswers,
+        timeSpentMs: totalTimeSpent * 1000
+      };
+      updateQuizMetrics(quizMetrics);
+      
+      // Set egg game active state
+      if (miniGameScore !== 0) {
+        setEggGameActive(true);
+      }
+      
       setShowResults(true);
     }
   };
