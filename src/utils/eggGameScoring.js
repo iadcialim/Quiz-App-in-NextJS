@@ -12,7 +12,7 @@
  * @param {number} metrics.totalEggsIntroduced - Total eggs introduced to game
  * @returns {Object} EggGameScore with points and breakdown
  */
-export function computeEggGameScore(metrics) {
+function computeEggGameScore(metrics) {
   // Input validation
   if (!metrics || typeof metrics !== 'object') {
     throw new Error('Egg game metrics are required');
@@ -51,3 +51,6 @@ export function computeEggGameScore(metrics) {
     }
   };
 }
+
+// CommonJS export for Node.js
+module.exports = { computeEggGameScore };

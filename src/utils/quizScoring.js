@@ -12,7 +12,7 @@
  * @param {number} metrics.timeSpentMs - Time spent in milliseconds
  * @returns {Object} QuizScore with points, breakdown, and percentage
  */
-export function computeQuizScore(metrics) {
+function computeQuizScore(metrics) {
   // Input validation
   if (!metrics || typeof metrics !== 'object') {
     throw new Error('Quiz metrics are required');
@@ -56,3 +56,6 @@ export function computeQuizScore(metrics) {
     percentage
   };
 }
+
+// CommonJS export for Node.js
+module.exports = { computeQuizScore };

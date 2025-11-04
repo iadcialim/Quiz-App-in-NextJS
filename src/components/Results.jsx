@@ -149,7 +149,7 @@ const Results = ({
             {showSubmissionForm && !isLoading && (
               <div className="animate-fade-in">
                 <ScoreSubmissionForm 
-                  score={score}
+                  score={(quizScore?.points || 0) + (eggGameScore?.points || 0)}
                   onSubmit={() => setIsLoading(true)}
                   onSuccess={(submittedName) => {
                     setIsLoading(false);

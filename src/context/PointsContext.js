@@ -76,7 +76,11 @@ export const PointsProvider = ({ children }) => {
         throw new Error('Invalid quiz metrics provided');
       }
       setQuizMetrics(metrics);
-      calculateQuizScore(metrics);
+      const quizResult = calculateQuizScore(metrics);
+      
+      // Update total score with new quiz score and current egg game score
+      const currentEggScore = eggGameScore?.points || 0;
+      updateTotalScore(quizResult.points, currentEggScore);
     } catch (error) {
       console.error('Error updating quiz metrics:', error.message);
     }
@@ -88,7 +92,11 @@ export const PointsProvider = ({ children }) => {
         throw new Error('Invalid egg game metrics provided');
       }
       setEggGameMetrics(metrics);
-      calculateEggGameScore(metrics);
+      const eggResult = calculateEggGameScore(metrics);
+      
+      // Update total score with current quiz score and new egg game score
+      const currentQuizScore = quizScore?.points || 0;
+      updateTotalScore(currentQuizScore, eggResult.points);
     } catch (error) {
       console.error('Error updating egg game metrics:', error.message);
     }
@@ -126,6 +134,15 @@ export const PointsProvider = ({ children }) => {
 };
 
 
+
+// Custom hook to use the context
+export const usePoints = () => {
+  const context = useContext(PointsContext);
+  if (!context) {
+    throw new Error('usePoints must be used within a PointsProvider');
+  }
+  return context;
+};
 
 // Export context for direct use
 export { PointsContext };

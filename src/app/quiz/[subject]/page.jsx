@@ -8,15 +8,8 @@ import EggJugglingGame from "@/components/EggJugglingGame";
 
 const Quiz = ({ params }) => {
   const { subject } = params;
-  const { points, setPoints, updateQuizMetrics, updateEggGameMetrics, setEggGameActive } = usePoints();
+  const { points, setPoints, miniGameScore, quizScore, eggGameScore, updateQuizMetrics, updateEggGameMetrics, setEggGameActive, updateTotalScore } = usePoints();
   
-  // Set egg game active state when mini-game has score
-  useEffect(() => {
-    if (miniGameScore !== 0) {
-      setEggGameActive(true);
-    }
-  }, [miniGameScore, setEggGameActive]);
-
   const [questions, setQuestions] = useState([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedOption, setSelectedOption] = useState(null);
@@ -27,7 +20,13 @@ const Quiz = ({ params }) => {
   const [unattemptedQuestions, setUnattemptedQuestions] = useState(0);
   const [totalTimeSpent, setTotalTimeSpent] = useState(0);
   const [timePerQuestion, setTimePerQuestion] = useState(0);
-  const [miniGameScore, setMiniGameScore] = useState(0);
+  
+  // Set egg game active state when mini-game has score
+  useEffect(() => {
+    if (miniGameScore !== 0) {
+      setEggGameActive(true);
+    }
+  }, [miniGameScore, setEggGameActive]);
 
   useEffect(() => {
     const fetchQuestions = async () => {
@@ -55,7 +54,6 @@ const Quiz = ({ params }) => {
     setTotalTimeSpent(totalTimeSpent + timePerQuestion);
 
     if (option === questions[currentQuestionIndex].answer) {
-      setPoints(points + 4); // 4 points for a correct answer
       setCorrectAnswers(correctAnswers + 1);
     } else {
       setWrongAnswers(wrongAnswers + 1);
@@ -71,11 +69,13 @@ const Quiz = ({ params }) => {
       setTimePerQuestion(0); // Reset the time for the next question
     } else {
       // Calculate final quiz metrics and update context
+      // Note: correctAnswers and wrongAnswers are already updated in handleAnswer
+      
       const quizMetrics = {
         totalQuestions: questions.length,
         correct: correctAnswers,
         wrong: wrongAnswers,
-        timeSpentMs: totalTimeSpent * 1000
+        timeSpentMs: (totalTimeSpent + timePerQuestion) * 1000
       };
       updateQuizMetrics(quizMetrics);
       
@@ -109,7 +109,7 @@ const Quiz = ({ params }) => {
             <div className="flex-1 min-h-[calc(100vh-200px)]">
               <EggJugglingGame 
                 isQuizActive={!showResults}
-                onScoreUpdate={setMiniGameScore}
+                onScoreUpdate={(score) => updateEggGameMetrics({ points: score })}
                 width={240}
                 height={700}
                 className="w-full h-full"
