@@ -70,9 +70,7 @@ export default function EggJugglingGame({
       totalEggsIntroduced: gameSettings.eggQuantity
     };
     
-    console.log('EggJugglingGame - gameState.score:', gameState.score);
-    console.log('EggJugglingGame - gameState.droppedEggs:', gameState.droppedEggs);
-    console.log('EggJugglingGame - calculated metrics:', eggGameMetrics);
+
     updateEggGameMetrics(eggGameMetrics);
   }, [gameState.score, gameState.droppedEggs, gameState.totalEggsSpawned, gameState.successfulBounces, gameSettings.eggQuantity, onScoreUpdate, updateEggGameMetrics]);
 

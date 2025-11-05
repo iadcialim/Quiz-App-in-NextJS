@@ -86,6 +86,7 @@
 - [x] T033 Manual verification of quiz completion flow
 - [x] T034 Manual verification of scoring calculations
 - [x] T035 Manual testing of enhanced scoring system with updated weights
+- [x] T036 Deploy enhanced scoring system to production environment
 
 ## Dependencies
 

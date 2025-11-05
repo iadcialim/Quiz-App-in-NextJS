@@ -50,8 +50,8 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'Name must be at least 2 characters' });
   }
 
-  if (typeof score !== 'number' || score < 0 || score > 1000) {
-    return res.status(400).json({ error: 'Invalid score range' });
+  if (typeof score !== 'number' || score < 0) {
+    return res.status(400).json({ error: 'Invalid score' });
   }
 
   // Additional validation for optional fields

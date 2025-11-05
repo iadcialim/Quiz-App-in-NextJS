@@ -23,15 +23,7 @@ const Results = ({
 }) => {
   const { quizScore, eggGameScore, eggGameMetrics, eggGameActive } = useContext(PointsContext);
   
-  // Debug: Log egg game data
-  console.log('Results - eggGameActive:', eggGameActive);
-  console.log('Results - eggGameMetrics:', eggGameMetrics);
-  console.log('Results - eggGameScore:', eggGameScore);
-  console.log('Results - miniGameScore:', miniGameScore);
-  
-  // Check if egg game section should be visible
-  const shouldShowEggGame = eggGameActive || miniGameScore !== 0 || (eggGameMetrics && (eggGameMetrics.juggles > 0 || eggGameMetrics.eggsDropped > 0));
-  console.log('Results - shouldShowEggGame:', shouldShowEggGame);
+
   // Set the state for confetti
   const [showConfetti, setShowConfetti] = useState(true);
   const [showSubmissionForm, setShowSubmissionForm] = useState(true);

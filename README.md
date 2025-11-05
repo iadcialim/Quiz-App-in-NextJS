@@ -83,6 +83,56 @@ npm run dev
 ```
 Open your browser and go to `http://localhost:3000` to see the app in action.
 
+## Deployment
+
+### Deploy to Vercel (Recommended)
+
+#### Option 1: Quick Deploy
+```bash
+npm run deploy:vercel
+```
+
+#### Option 2: Manual Deploy
+```bash
+# Install Vercel CLI globally
+npm install -g vercel
+
+# Deploy to production
+vercel --prod
+```
+
+#### Option 3: Git-based Auto Deploy
+1. Push your code to GitHub
+2. Connect repository to Vercel at [vercel.com](https://vercel.com)
+3. Vercel will auto-deploy on every push to main branch
+
+### Pre-deployment Checklist
+```bash
+# Test build
+npm run build
+
+# Run tests
+npm test
+```
+
+### Other Deployment Options
+
+#### Netlify
+```bash
+npm run build
+# Upload .next folder to netlify.com
+```
+
+#### GitHub Pages (Static Export)
+Add to `next.config.js`:
+```javascript
+const nextConfig = {
+  output: 'export',
+  trailingSlash: true,
+  images: { unoptimized: true }
+}
+```
+
 ## Project Structure
 
 - `public/data/`: Contains JSON files for questions.
