@@ -82,10 +82,10 @@ interface EggGameScore {
 ```
 
 **Calculation Rules**:
-- `bouncePoints = juggles × 10`
-- `dropPenalty = eggsDropped × 200`
+- `bouncePoints = juggles × 100`
+- `dropPenalty = eggsDropped × 10`
 - `excessEggs = max(0, totalEggsIntroduced - 5)`
-- `efficiencyPenalty = excessEggs × 100`
+- `efficiencyPenalty = excessEggs × 10`
 - `points = bouncePoints - dropPenalty - efficiencyPenalty`
 
 ## UI Components

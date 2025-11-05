@@ -102,7 +102,7 @@ As a quiz participant, I want to see detailed scoring results with separate sect
 
 - **FR-001**: System MUST display "Your Score" as the Results page title instead of "Quiz Result"
 - **FR-002**: System MUST remove the legacy text "You scored .. out of .. possible points" from all Results displays
-- **FR-003**: System MUST create a Quiz section displaying exactly 5 cards: Correct Answers, Wrong Answers, Percentage, Total Time Spent, and Total Points
+- **FR-003**: System MUST create a Quiz section displaying exactly 4 cards: Correct Answers, Wrong Answers, Percentage, and Quiz Score
 - **FR-004**: System MUST create an Egg Juggling section displaying exactly 5 cards: Eggs Dropped, Eggs Produced, Egg Juggles, Total Time Spent, and Total Points
 - **FR-005**: System MUST implement the new quiz scoring formula: Accuracy Score (correct × 100 - wrong × 50) + Speed Bonus (time saved factor × 500)
 - **FR-006**: System MUST implement the new egg juggling scoring formula: Bounce Points (juggles × 10) - Total Penalty (drops × 200 + excess eggs above 5 × 100)

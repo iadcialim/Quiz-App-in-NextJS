@@ -71,15 +71,14 @@ describe('Results Component Contract', () => {
     expect(screen.queryByText(/You scored .* out of .* possible points/)).not.toBeInTheDocument();
   });
 
-  test('displays Quiz Results section with 5 cards', () => {
+  test('displays Quiz Results section with 4 cards', () => {
     renderWithContext(mockQuizData);
     
     expect(screen.getByText('Quiz Results')).toBeInTheDocument();
     expect(screen.getByText('Correct Answers')).toBeInTheDocument();
     expect(screen.getByText('Wrong Answers')).toBeInTheDocument();
     expect(screen.getByText('Percentage')).toBeInTheDocument();
-    expect(screen.getByText('Total Time Spent')).toBeInTheDocument();
-    expect(screen.getByText('Total Points')).toBeInTheDocument();
+    expect(screen.getByText('Quiz Score')).toBeInTheDocument();
   });
 
   test('displays Egg Juggling section when mini-game active', () => {

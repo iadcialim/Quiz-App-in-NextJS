@@ -86,7 +86,7 @@ export const quizFixtures = {
 
 // Egg game scoring test data
 export const eggGameFixtures = {
-  // Reference example: 200 juggles, 1 dropped, 6 total eggs → 1700 points
+  // Reference example: 200 juggles, 1 dropped, 6 total eggs → 19,980 points
   referenceExample: {
     input: {
       eggsDropped: 1,
@@ -95,11 +95,11 @@ export const eggGameFixtures = {
       totalEggsIntroduced: 6
     },
     expected: {
-      points: 1700,
+      points: 19980,
       breakdown: {
-        bouncePoints: 2000,    // 200 × 10
-        dropPenalty: 200,      // 1 × 200
-        efficiencyPenalty: 100, // (6-5) × 100
+        bouncePoints: 20000,   // 200 × 100
+        dropPenalty: 10,       // 1 × 10
+        efficiencyPenalty: 10, // (6-5) × 10
         excessEggs: 1          // 6 - 5
       }
     }
@@ -114,9 +114,9 @@ export const eggGameFixtures = {
       totalEggsIntroduced: 5
     },
     expected: {
-      points: 500,
+      points: 5000,
       breakdown: {
-        bouncePoints: 500,
+        bouncePoints: 5000,
         dropPenalty: 0,
         efficiencyPenalty: 0,
         excessEggs: 0
@@ -133,11 +133,11 @@ export const eggGameFixtures = {
       totalEggsIntroduced: 15
     },
     expected: {
-      points: -3000, // 0 - 2000 - 1000
+      points: -200, // 0 - 100 - 100
       breakdown: {
         bouncePoints: 0,
-        dropPenalty: 2000,     // 10 × 200
-        efficiencyPenalty: 1000, // (15-5) × 100
+        dropPenalty: 100,      // 10 × 10
+        efficiencyPenalty: 100, // (15-5) × 10
         excessEggs: 10         // 15 - 5
       }
     }
